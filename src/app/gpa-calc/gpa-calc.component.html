@@ -20,6 +20,10 @@
 </form>
 </div>-->
 
+<!-- <app-grading-scale> </app-grading-scale> -->
+
+
+
 <div id="bigDiv">
   <div id="title">
     <h1>GPA Calculator</h1>
@@ -182,6 +186,9 @@
     <div>
       <div id="calculator">
       <p> Input the name, the grade, the credits earned, and the type for each one of your courses in their respective columns.</p>
+      <br>
+      <button (click)= "toggleGradingScale()" id="gradingScaleButton"> Options </button>
+      <br>
       <br>
         <table>
           <thead>
@@ -814,3 +821,4 @@
 <br>
 <div id="copyRight">Created by the Homestead FBLA Intro to Programming team. © 2024</div>
 </div>
+

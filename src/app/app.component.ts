@@ -1,21 +1,34 @@
 import { Component } from '@angular/core';
 import { GpaCalcComponent } from './gpa-calc/gpa-calc.component';
+import { GradingScaleComponent } from './gpa-calc/grading-scale/grading-scale.component';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [GpaCalcComponent],
-  template: `<main>
+  imports: [
+    GpaCalcComponent,
+    GradingScaleComponent
+  ],
+  templateUrl: './app.component.html',
+//   template: `<main>
+    
   
-  <section class="content">
-    <app-gpa-calc></app-gpa-calc>
-  </section>
-</main>`,
+//   <section class="content">
+//     <app-gpa-calc></app-gpa-calc>
+//   </section>
+// </main>`,
   styleUrls: ['./app.component.css'],
 })
+
 export class AppComponent {
   title = 'GPA_CALC';
   
+  showGradingScale: boolean = false;
+
+  toggleGradingScale(){
+    this.showGradingScale = !this.showGradingScale;
+  }
 }
 
 

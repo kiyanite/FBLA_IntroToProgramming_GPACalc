@@ -4,9 +4,10 @@ import { BrowserModule, SafeResourceUrl } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } from '@angular/forms';
+import { GradingScaleComponent } from './grading-scale/grading-scale.component';
 
 
 @Component({
@@ -19,6 +20,13 @@ import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormArray, Va
 
 
 export class GpaCalcComponent {
+
+  @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
+
+  toggleGradingScale()
+  {
+    this.toggle.emit();
+  }
 
   // variables in this class
   /* scale table object used for html display */
@@ -37,6 +45,8 @@ export class GpaCalcComponent {
   showQ7: boolean = false;
   showQ8: boolean = false;
   showQ9: boolean = false;
+
+
 
 
   /* flag to show if the file name or file extension is valid */
@@ -548,6 +558,8 @@ searchScalesById(id: number)
   }
 
   
+
+  
   /* construct the content string for the GPA report */
   constructReport()
   {
@@ -830,6 +842,7 @@ calculateAllGPAWeighted(){
   }
   return Math.round(answer*100)/100;
   }
+  
   
 
   // This is the end of function definitions.
