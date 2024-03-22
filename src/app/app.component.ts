@@ -2,22 +2,24 @@ import { Component } from '@angular/core';
 import { GpaCalcComponent } from './gpa-calc/gpa-calc.component';
 import { GradingScaleComponent } from './gpa-calc/grading-scale/grading-scale.component';
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
     GpaCalcComponent,
-    GradingScaleComponent
+    GradingScaleComponent,
+    CommonModule
   ],
-  templateUrl: './app.component.html',
-//   template: `<main>
+  // templateUrl: './app.component.html',
+  template: `<main>
     
   
-//   <section class="content">
-//     <app-gpa-calc></app-gpa-calc>
-//   </section>
-// </main>`,
+  <section class="content">
+    <app-gpa-calc></app-gpa-calc>
+  </section>
+</main>`,
   styleUrls: ['./app.component.css'],
 })
 

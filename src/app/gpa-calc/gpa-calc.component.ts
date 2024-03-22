@@ -13,7 +13,12 @@ import { GradingScaleComponent } from './grading-scale/grading-scale.component';
 @Component({
   selector: 'app-gpa-calc',
   standalone: true,
-  imports: [FormsModule, CommonModule,ReactiveFormsModule],
+  imports: [
+    FormsModule, 
+    CommonModule,
+    ReactiveFormsModule,
+    GradingScaleComponent
+  ],
   templateUrl: './gpa-calc.component.html',
   styleUrl: './gpa-calc.component.css'
 })
@@ -23,10 +28,10 @@ export class GpaCalcComponent {
 
   @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
 
-  toggleGradingScale()
-  {
-    this.toggle.emit();
-  }
+  // toggleGradingScale()
+  // {
+  //   this.toggle.emit();
+  // }
 
   // variables in this class
   /* scale table object used for html display */
@@ -45,7 +50,7 @@ export class GpaCalcComponent {
   showQ7: boolean = false;
   showQ8: boolean = false;
   showQ9: boolean = false;
-
+  showGradingScale: boolean = false;
 
 
 
@@ -557,7 +562,9 @@ searchScalesById(id: number)
     this.showQ9 = ! this.showQ9;
   }
 
-  
+  toggleGradingScale(){
+    this.showGradingScale = !this.showGradingScale;
+  }
 
   
   /* construct the content string for the GPA report */

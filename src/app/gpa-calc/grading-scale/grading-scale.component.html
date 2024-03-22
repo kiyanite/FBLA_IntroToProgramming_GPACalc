@@ -1,10 +1,26 @@
 
-
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
 <body> 
     <div class="modal">
         <div class="modal__inner">
-            sample content
+            <div class="modal__top">
+                <div class="modal__title"> Sample Modal Title </div>
+                <button class="modal__close" type="button" (click)="callToggleGradingScale()">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+            <div class="modal__content">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+            <div class="modal__bottom">
+                <button class="modal__save" (click)="callToggleGradingScale()">
+                    Save
+                </button>
+            </div>
         </div>
     </div>
 </body>
