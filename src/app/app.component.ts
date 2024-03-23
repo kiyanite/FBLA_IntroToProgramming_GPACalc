@@ -12,14 +12,14 @@ import { CommonModule } from '@angular/common';
     GradingScaleComponent,
     CommonModule
   ],
-  // templateUrl: './app.component.html',
-  template: `<main>
+  templateUrl: './app.component.html',
+//   template: `<main>
     
   
-  <section class="content">
-    <app-gpa-calc></app-gpa-calc>
-  </section>
-</main>`,
+//   <section class="content">
+//     <app-gpa-calc></app-gpa-calc>
+//   </section>
+// </main>`,
   styleUrls: ['./app.component.css'],
 })
 
@@ -28,9 +28,19 @@ export class AppComponent {
   
   showGradingScale: boolean = false;
 
-  toggleGradingScale(){
-    this.showGradingScale = !this.showGradingScale;
+  // toggleGradingScale(){
+  //   this.showGradingScale = !this.showGradingScale;
+  // }
+
+  receiveOpenGS($event: boolean) {
+    this.showGradingScale = $event;
   }
+
+  receiveCloseGS($event: boolean) {
+    this.showGradingScale = $event;
+  }
+
+
 }
 
 

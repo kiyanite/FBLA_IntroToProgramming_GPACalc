@@ -24,6 +24,24 @@
 
 <base href="/">
 
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of tableData; let i = index">
+      <td><input type="text" [(ngModel)]="row.name"></td>
+      <td><input type="email" [(ngModel)]="row.email"></td>
+      <td><button (click)="removeRow(i)">Remove</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<button (click)="addRow()">Add Row</button>
 <div id="bigDiv">
   <div id="title">
     <h1>GPA Calculator</h1>
@@ -183,11 +201,11 @@
       </td>
     </tr>
 
-    <div>
+        <div>
       <div id="calculator">
       <p> Input the name, the grade, the credits earned, and the type for each one of your courses in their respective columns.</p>
       <br>
-      <button (click)= "toggleGradingScale()" id="gradingScaleButton"> Options </button>
+      <button (click)= "sendOpenGS()" id="gradingScaleButton"> Options </button>
       <br>
       <br>
         <table>
@@ -621,19 +639,75 @@
           <thead>
             <tr>
               <th scope="col">Letter Grade</th>
-              <th scope="col">Percent Grade</th>
+              <th scope="col">Percent Grade low</th>
+              <th scope="col">Percent Grade high</th>
               <th scope="col">Regular</th>
               <th scope="col">Honors</th>
               <th scope="col">AP</th>
             </tr>
           </thead>
           <tbody>
+            <!--
             <tr *ngFor="let scale of scales">
               <td>{{ scale.letterGrade }}</td>
               <td>{{ scale.percentGrade }} - {{ scale.percentGradeHi }}</td>
               <td>{{ scale.regular }}</td>
               <td>{{ scale.honors }}</td>
               <td>{{ scale.ap }}</td>
+            </tr>
+          -->
+            <tr *ngFor="let scale of scales; let i = index" (dblclick)="editItem(i)">
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editMode">
+                  {{  scale.letterGrade }}
+                </ng-container>
+                <ng-template #editMode>
+                  <input type="text" [(ngModel)]="editedItem.letterGrade" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editPercentGrade">
+                  {{  scale.percentGrade }}
+                </ng-container>
+                <ng-template #editPercentGrade>
+                  <input type="text" [(ngModel)]="editedItem.percentGrade" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editPercentGradeHi">
+                  {{  scale.percentGradeHi }}
+                </ng-container>
+                <ng-template #editPercentGradeHi>
+                  <input type="text" [(ngModel)]="editedItem.percentGradeHi" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editRegular">
+                  {{  scale.regular }}
+                </ng-container>
+                <ng-template #editRegular>
+                  <input type="text" [(ngModel)]="editedItem.regular" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editHonors">
+                  {{  scale.honors }}
+                </ng-container>
+                <ng-template #editHonors>
+                  <input type="text" [(ngModel)]="editedItem.honors" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+              <td>
+                <ng-container *ngIf="editIndex !== i; else editAp">
+                  {{  scale.ap }}
+                </ng-container>
+                <ng-template #editAp>
+                  <input type="text" [(ngModel)]="editedItem.ap" (blur)="saveChanges(i)" />
+                </ng-template>
+              </td>
+             
+             
             </tr>
           </tbody>
         </table>
@@ -822,4 +896,4 @@
 <div id="copyRight">Created by the Homestead FBLA Intro to Programming team. © 2024</div>
 </div>
 
-<app-grading-scale *ngIf = "showGradingScale"></app-grading-scale>
+<!-- <app-grading-scale *ngIf = "showGradingScale" (buttonEvent)="receiveCloseGS($event)" [gradingScaleVisible]="showGradingScale"></app-grading-scale> -->

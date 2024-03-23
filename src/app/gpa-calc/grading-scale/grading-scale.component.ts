@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 import { GpaCalcComponent } from '../gpa-calc.component';
 
 @Component({
@@ -9,18 +9,29 @@ import { GpaCalcComponent } from '../gpa-calc.component';
   styleUrl: './grading-scale.component.css'
 })
 export class GradingScaleComponent implements AfterViewInit{
-  @ViewChild(GpaCalcComponent) gpaCalcComponent!: GpaCalcComponent;
+  // @ViewChild(GpaCalcComponent) gpaCalcComponent!: GpaCalcComponent;
 
-  callToggleGradingScale(){
-    // if(this.gpaCalcComponent) {
-    //   this.gpaCalcComponent.toggleGradingScale();
-    // }
+  // callToggleGradingScale(){
+  //   if(this.gpaCalcComponent) {
+  //     this.gpaCalcComponent.toggleGradingScale();
+  //    }
 
-    this.gpaCalcComponent.showGradingScale = false;
-  }
+  //   //this.gpaCalcComponent.showGradingScale = false;
+  // }
 
   ngAfterViewInit(){
+    
+  }
 
+  @Input() gradingScaleVisible: boolean = true;
+
+  @Output() buttonEvent = new EventEmitter<boolean>();
+
+  constructor(){}
+
+  sendCloseGS(){
+    this.gradingScaleVisible = false;
+    this.buttonEvent.emit(this.gradingScaleVisible);
   }
 }
 

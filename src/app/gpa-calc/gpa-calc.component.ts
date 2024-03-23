@@ -1,7 +1,7 @@
 /* This component defines the variables and functions used for this GPA calculator */
 import { scales } from '../scales';
 import { BrowserModule, SafeResourceUrl } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { Input, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
@@ -26,7 +26,18 @@ import { GradingScaleComponent } from './grading-scale/grading-scale.component';
 
 export class GpaCalcComponent {
 
-  @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
+  @Input() gradingScaleVisible: boolean = false;
+
+  @Output() buttonEvent = new EventEmitter<boolean>();
+
+  constructor(){}
+
+  sendOpenGS(){
+    this.gradingScaleVisible = true;
+    this.buttonEvent.emit(this.gradingScaleVisible);
+  }
+
+  // @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
 
   // toggleGradingScale()
   // {
@@ -34,6 +45,39 @@ export class GpaCalcComponent {
   // }
 
   // variables in this class
+
+   // variables in this class
+
+  // receiveCloseGS($event: boolean) {
+  //   this.showGradingScale = $event;
+  // }
+
+   tableData: any[] = [];
+
+   addRow() {
+     this.tableData.push({}); // Add an empty row
+   }
+ 
+   removeRow(index: number) {
+     this.tableData.splice(index, 1); // Remove row at the specified index
+   }
+   
+ 
+   editIndex: number | null = null;
+   editedItem: any = {};
+ 
+   editItem(index: number) {
+     this.editIndex = index;
+     this.editedItem = { ...this.scales[index] };
+   }
+ 
+   saveChanges(index: number) {
+     if (this.editIndex !== null) {
+       this.scales[index] = { ...this.editedItem };
+       this.editIndex = null;
+     }
+   }
+ 
   /* scale table object used for html display */
   scales = [...scales];
 
@@ -50,7 +94,8 @@ export class GpaCalcComponent {
   showQ7: boolean = false;
   showQ8: boolean = false;
   showQ9: boolean = false;
-  showGradingScale: boolean = false;
+  
+  // showGradingScale: boolean = false;
 
 
 
@@ -562,9 +607,9 @@ searchScalesById(id: number)
     this.showQ9 = ! this.showQ9;
   }
 
-  toggleGradingScale(){
-    this.showGradingScale = !this.showGradingScale;
-  }
+  // toggleGradingScale(){
+  //   this.showGradingScale = !this.showGradingScale;
+  // }
 
   
   /* construct the content string for the GPA report */
