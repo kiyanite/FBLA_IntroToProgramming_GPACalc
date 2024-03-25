@@ -22,7 +22,9 @@
 
 <!-- <app-grading-scale> </app-grading-scale> -->
 
-<base href="/">
+<!-- <base href="/"> -->
+
+<app-grading-scale *ngIf="false"></app-grading-scale>
 
 <table>
   <thead>
@@ -787,7 +789,7 @@
 <div *ngIf="showQ1">  
 <p>Follow these steps to calculate your GPA:</p>
 <ol>
-<li>Find your grades for each of your courses and list them out
+<li>Find your grades for each of your courses and list them out.
   If you only have percentages, convert your percentages into a letter grade for the simplicity of this guide. You can use our grading scale table to convert your percentages into letters.</li>
 <li>List out the number of credits earned for each of your courses along with your grades.</li>
 <li>Use our table above to convert your letter grades to points OR if your school uses a different grading scale, ask your school for their own grading scale and use that to convert your letter grades to points.

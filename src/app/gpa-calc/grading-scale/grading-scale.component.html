@@ -6,18 +6,70 @@
     <div class="modal">
         <div class="modal__inner">
             <div class="modal__top">
-                <div class="modal__title"> Sample Modal Title </div>
+                <div class="modal__title"> 
+                    <b> Grading Scale Editor </b>
+                </div>
                 <button class="modal__close" type="button" (click)="sendCloseGS()">
                     <span class="material-icons">close</span>
                 </button>
             </div>
             <div class="modal__content">
+                <h1> Default </h1>
+                <hr />
                 <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    This is the default grading scale.
                 </p>
+                <br>
+                <div>
+                    <table id = "unweightedGradingScale">
+                      <thead>
+                        <tr class = "tableRow">
+                          <th class = "tableHeader" scope="col">Letter Grade</th>
+                          <th class = "tableHeader" scope="col">Percent Grade low</th>
+                          <th class = "tableHeader" scope="col">Percent Grade high</th>
+                          <th class = "tableHeader" scope="col">Regular</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!--
+                        <tr *ngFor="let scale of scales">
+                          <td>{{ scale.letterGrade }}</td>
+                          <td>{{ scale.percentGrade }} - {{ scale.percentGradeHi }}</td>
+                          <td>{{ scale.regular }}</td>
+                          <td>{{ scale.honors }}</td>
+                          <td>{{ scale.ap }}</td>
+                        </tr>
+                      -->
+                        <tr class = "tableRow" *ngFor="let scale of scales; let i = index" (click)="editItem(i)">
+                          <td class = "tableCell">
+                            <ng-container>
+                              <input class="letterInput" type="text" [(ngModel)]="scales[i].letterGrade" (blur)="saveChanges(i)" />
+                            </ng-container>
+                          </td>
+                          <td class = "tableCell">
+                            <ng-container>
+                              <input class="percentLowInput" type="text" [(ngModel)]="scales[i].percentGrade" (blur)="saveChanges(i)" /> % -
+                            </ng-container>
+                          </td>
+                          <td class = "tableCell">
+                            <ng-container>
+                              <input class="percentHighInput" type="text" [(ngModel)]="scales[i].percentGradeHi" (blur)="saveChanges(i)" /> %
+                            </ng-container>
+                          </td>
+                          <td class = "tableCell">
+                            <ng-container>
+                              <input class="regularInput" type="text" [(ngModel)]="scales[i].regular" (blur)="saveChanges(i)" />
+                            </ng-container>
+                          </td>
+                         
+                         
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
             </div>
             <div class="modal__bottom">
-                <button class="modal__save" (click)="sendCloseGS()">
+                <button class="modal__save" (click)="save()">
                     Save
                 </button>
             </div>

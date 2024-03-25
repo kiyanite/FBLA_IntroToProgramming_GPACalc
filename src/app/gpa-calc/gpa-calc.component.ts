@@ -37,6 +37,10 @@ export class GpaCalcComponent {
     this.buttonEvent.emit(this.gradingScaleVisible);
   }
 
+  // setScalesEqual($event: { id: number; letterGrade: string; percentGrade: number; percentGradeHi: number; regular: number; honors: number; ap: number; }[]) {
+  //   this.scales = $event;
+  // }
+
   // @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
 
   // toggleGradingScale()

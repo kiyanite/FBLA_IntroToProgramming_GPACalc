@@ -1,10 +1,17 @@
-import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, ViewChild, AfterViewInit, Output, EventEmitter, Input, NgModule } from '@angular/core';
 import { GpaCalcComponent } from '../gpa-calc.component';
+import { scales } from '../../scales';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-grading-scale',
   standalone: true,
-  imports: [],
+  imports: [
+    FormsModule, 
+    CommonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './grading-scale.component.html',
   styleUrl: './grading-scale.component.css'
 })
@@ -27,11 +34,40 @@ export class GradingScaleComponent implements AfterViewInit{
 
   @Output() buttonEvent = new EventEmitter<boolean>();
 
+  @Output() saveEvent = new EventEmitter<any>();
+
+  @Input() scales = [...scales];
+
+  editIndex: number = -1;
+  editedItem: any = {};
+
   constructor(){}
 
-  sendCloseGS(){
+  save() {
+    // this.saveChanges(this.editIndex);
+    // this.sendScales();
+    this.sendCloseGS();
+  }
+
+  sendCloseGS() {
     this.gradingScaleVisible = false;
     this.buttonEvent.emit(this.gradingScaleVisible);
+  }
+
+  // sendScales() {
+  //   this.saveEvent.emit(this.scales);
+  // }
+
+  editItem(index: number) {
+    this.editIndex = index;
+    this.editedItem = { ...this.scales[index] };
+  }
+
+  saveChanges(index: number) {
+    if (this.editIndex !== -1) {
+      this.scales[index] = { ...this.scales[index] };
+      this.editIndex = -1;
+    }
   }
 }
 
