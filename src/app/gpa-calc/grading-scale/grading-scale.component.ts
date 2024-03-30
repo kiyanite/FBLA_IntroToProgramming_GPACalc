@@ -43,6 +43,13 @@ export class GradingScaleComponent implements AfterViewInit{
 
   constructor(){}
 
+  //unused (didnt work)
+  setLetterValue(index: number) {
+    // let letterGrade: string = this.scales[index].letterGrade;
+    // return letterGrade;
+    return this.scales[index];
+  }
+
   save() {
     // this.saveChanges(this.editIndex);
     // this.sendScales();

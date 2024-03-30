@@ -101,14 +101,9 @@
     border: none;
 }
 
-.percentLowInput{
+.percentInput{
     width: 35px;
     text-align: center;
-}
-
-.percentHighInput{
-    text-align: center;
-    width: 35px;
 }
 
 .regularInput{
