@@ -1,15 +1,15 @@
-# FBLA_IntroToProgramming_GPACalc
-
-[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Little6thingys/FBLA_IntroToProgramming_GPACalc)
-
 # GPA Calculator
 
 This GPA Calculator is a simple tool designed to help students calculate their Grade Point Average (GPA) quickly and accurately. It allows users to input their course grades and credits to determine their cumulative GPA.
 
-This GPA Calculator is a student-created project for the Introduction to Programming FBLA Competition. 
+This GPA Calculator is a student-created project for the Introduction to Programming FBLA Competition.
+
 Use this calculator to calculate your GPA by entering your grade/percentage, credits earned, and course type for each course you have.   
+
 This calculator also has additional features such as the ability to download a report of the information you filled in and a changeable grading scale to better fit your school's specific grading system.
+
 Features to be added soon include a new Schoology-powered GPA calculator that can access your grades directly from Schoology to more accurately calculate your GPA and perform other tasks. 
+
 Additional help is provided in both the Guide and the FAQ sections at the bottom if needed.
 
 ## Features
