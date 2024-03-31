@@ -56,14 +56,14 @@ export class GpaCalcComponent {
   //   this.showGradingScale = $event;
   // }
 
-   tableData: any[] = [];
+   gradeTable: any[] = [];
 
    addRow() {
-     this.tableData.push({}); // Add an empty row
+     this.gradeTable.push({}); // Add an empty row
    }
  
    removeRow(index: number) {
-     this.tableData.splice(index, 1); // Remove row at the specified index
+     this.gradeTable.splice(index, 1); // Remove row at the specified index
    }
    
  
@@ -208,6 +208,38 @@ export class GpaCalcComponent {
       this.validFileName = false;
     }
   }
+
+    /*validate credit is a positve integer for GPA report */
+    validateCredit(row: any) {
+      row.validCredit = true;
+      if (row.credit.length == 0) {
+        //do input validation here, if there is empty string, report error on the GUI
+        row.validCredit = false;
+      } else {
+        let number = Number(row.credit);
+        let isInteger = Number.isInteger(number);
+        if (!isInteger || number < 0) {
+          // if this is not a positive integer
+          row.validCredit = false;
+        }
+      }
+    }
+  
+    /*validate percentage grade is valid, it's a number >=0 */
+    validatePerentage(row: any) {
+      row.validPercentage = true;
+      if (row.gradePercent.length == 0) {
+        //do input validation here, if there is empty string, report error on the GUI
+        row.validPercentage = false;
+      } else {
+        let number = Number(row.gradePercent);
+        let isInteger = Number.isInteger(number);
+        if (!isInteger || number < 0) {
+          // if this is not a positive number
+          row.validPercentage = false;
+        }
+      }
+    }
 
   /*validate credit is a positve integer for GPA report */
   validateFirstCredit()

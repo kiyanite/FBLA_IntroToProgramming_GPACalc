@@ -26,42 +26,6 @@
 
 <app-grading-scale *ngIf="false"></app-grading-scale>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let row of tableData; let i = index">
-      <td><input type="text" [(ngModel)]="row.name"></td>
-      <td><input type="email" [(ngModel)]="row.email"></td>
-      <td><button (click)="removeRow(i)">Remove</button></td>
-    </tr>
-  </tbody>
-</table>
-
-<button (click)="addRow()">Add Row</button>
-
-<table>
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-    </tr>
-  </thead>
-  <tbody>
-    display the current value of scales
-    <tr *ngFor="let row of tableData">
-      <td>{{ row.name }}</td>
-      <td>{{ row.email }}</td>
-    </tr>
-  </tbody>
-</table>
-
-
 <div id="bigDiv">
   <div id="title">
     <h1>GPA Calculator</h1>
@@ -231,429 +195,107 @@
       <div id="calculator">
       <p> Input the name, the grade, the credits earned, and the type for each one of your courses in their respective columns.</p>
       <br>
-      <button (click)= "sendOpenGS()" id="gradingScaleButton"> Options </button>
-      <br>
-      <br>
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">Course Name</th>
-              <th scope="col">Grade</th>
-              <th scope="col">Credits</th>
-              <th scope="col">Course Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name" 
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Course Name</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Credits</th>
+            <th scope="col">Course Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of gradeTable; let i = index">
+            <td>
+              <input
+                id="courseName"
+                placeholder="Enter course name"
                 class="form-control"
-                [(ngModel)]="firstCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
+                [(ngModel)]="row.courseName"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </td>
 
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage1">
-                <select
-                  class="form-control"
-                  [(ngModel)]="firstGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage1>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="firstGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateFirstPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validFirstPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
+            <td *ngIf="gradeFormat == 'LETTERS'; else percentage1">
+              <select
+                class="form-control"
+                [(ngModel)]="row.grade"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                *ngFor="let scale of scales">
+                <option *ngFor="let scale of scales" value="{{ scale.id }}">
+                  {{ scale.letterGrade }}
+                </option>
+              </select>
+            </td>
+            <ng-template #percentage1>
+              <input
+                id="courseName"
+                placeholder="Enter percentage grade"
+                class="form-control"
+                [(ngModel)]="row.gradePercent"
+                [ngModelOptions]="{ standalone: true }"
+                (ngModelChange)="validatePerentage(row)"
+              />
+              <div id="errorDiv" *ngIf="!row.validPercentage">
+                Percentage grade must be a positive integer or zero!
+              </div>
+            </ng-template>
 
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="firstCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  (ngModelChange)="validateFirstCredit()"
-                  placeholder="Enter credits"
-                />
-                <div id="errorDiv" *ngIf="!this.validFirstCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="firstType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="secondCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage2">
-                <select
-                  class="form-control"
-                  [(ngModel)]="secondGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage2>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="secondGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateSecondPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSecondPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="secondCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateSecondCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSecondCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="secondType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="thirdCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage3">
-                <select
-                  class="form-control"
-                  [(ngModel)]="thirdGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage3>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="thirdGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateThirdPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validThirdPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="thirdCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateThirdCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validThirdCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="thirdType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="fourthCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage4">
-                <select
-                  class="form-control"
-                  [(ngModel)]="fourthGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage4>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="fourthGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateFourthPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validFourthPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="fourthCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateFourthCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validFourthCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="fourthType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="fifthCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage5">
-                <select
-                  class="form-control"
-                  [(ngModel)]="fifthGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage5>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="fifthGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateFifthPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validFifthPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="fifthCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateFifthCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validFifthCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="fifthType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="sixthCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage6">
-                <select
-                  class="form-control"
-                  [(ngModel)]="sixthGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage6>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="sixthGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateSixthPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSixthPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="sixthCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateSixthCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSixthCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="sixthType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="seventhCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage7">
-                <select
-                  class="form-control"
-                  [(ngModel)]="seventhGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage7>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="seventhGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateSeventhPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSeventhPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="seventhCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateSeventhCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validSeventhCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="seventhType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-            <tr>
-              <td><input id="courseName" placeholder="Enter course name"   class="form-control"
-                [(ngModel)]="eighthCourseName"
-                [ngModelOptions]="{ standalone: true }"/></td>
-              <td *ngIf="gradeFormat == 'LETTERS'; else percentage8">
-                <select
-                  class="form-control"
-                  [(ngModel)]="eighthGrade"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  *ngFor="let scale of scales">
-                  <option *ngFor="let scale of scales" value="{{ scale.id }}">
-                    {{ scale.letterGrade }}
-                  </option>
-                </select>
-              </td>
-              <ng-template #percentage8>
-                <input
-                  id="courseName"
-                  placeholder="Enter percentage grade"
-                  class="form-control"
-                  [(ngModel)]="eighthGradePercent"
-                  [ngModelOptions]="{ standalone: true }"
-                  (ngModelChange)="validateEighthPerentage()"
-                />
-                <div id="errorDiv" *ngIf="!this.validEighthPercentage">Percentage grade must be a positive integer or zero!</div>
-              </ng-template>
-              <td>
-                <input
-                  class="form-control"
-                  [(ngModel)]="eighthCredit"
-                  [ngModelOptions]="{ standalone: true }"
-                  id="credit"
-                  placeholder="Enter credits"
-                  (ngModelChange)="validateEighthCredit()"
-                />
-                <div id="errorDiv" *ngIf="!this.validEighthCredit">Credit must be a positive integer or zero!</div>
-              </td>
-              <td>
-                <select
-                  class="form-control"
-                  [(ngModel)]="eighthType"
-                  [ngModelOptions]="{ standalone: true }"
-                >
-                  <option value="regular">Regular</option>
-                  <option value="honors">Honors</option>
-                  <option value="ap">AP</option>
-                </select>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+            <td>
+              <input
+                class="form-control"
+                [(ngModel)]="row.credit"
+                [ngModelOptions]="{ standalone: true }"
+                id="credit"
+                (ngModelChange)="validateCredit(row)"
+                placeholder="Enter credits"
+              />
+              <div id="errorDiv" *ngIf="!row.validCredit">
+                Credit must be a positive integer or zero!
+              </div>
+            </td>
+            <td>
+              <select
+                class="form-control"
+                [(ngModel)]="row.type"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option value="regular">Regular</option>
+                <option value="honors">Honors</option>
+                <option value="ap">AP</option>
+              </select>
+            </td>
+            <td><button (click)="removeRow(i)">Remove</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="addRow()">Add Row</button>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Course Name</th>
+            <th scope="col">Grade</th>
+            <th scope="col">Grade Percent</th>
+            <th scope="col">Credits</th>
+            <th scope="col">Course Type</th>
+            <th scope="col">validPercentage</th>
+            <th scope="col">validCredit</th>
+          </tr>
+        </thead>
+        <tbody>
+          display the current value of grade table
+          <tr *ngFor="let row of gradeTable">
+            <td>{{ row.courseName }}</td>
+            <td>{{ row.grade }}</td>
+            <td>{{ row.gradePercent }}</td>
+            <td>{{ row.credit }}</td>
+            <td>{{ row.type }}</td>
+            <td>{{ row.validPercentage }}</td>
+            <td>{{ row.validCredit }}</td>
+          </tr>
+        </tbody>
+      </table>
       </div>
      <br>
       <div id="instructionTitle">
@@ -661,6 +303,7 @@
       </div>
 
       <div id="calculator">
+        <button (click)= "sendOpenGS()" id="gradingScaleButton"> Options </button>
         <table>
           <thead>
             <tr>
