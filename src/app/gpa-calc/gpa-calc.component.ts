@@ -529,6 +529,10 @@ export class GpaCalcComponent {
     link.remove(); 
   }
 
+  /*sends you to the google sign-in page*/
+  // onSignIn(){
+  //   link.href = 
+  // }
 
 
 /* serach scale table for the letter grade by id number */  
