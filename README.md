@@ -42,3 +42,6 @@ This GPA Calculator is a simple tool designed to help students calculate their G
 ## Acknowledgements
 
 - Built by Reva Karri, Yu Zheng, and Yara Abu Saude.
+
+Initially Created with StackBlitz:
+[Edit in StackBlitz next generation editor ⚡️](https://stackblitz.com/~/github.com/Little6thingys/FBLA_IntroToProgramming_GPACalc)

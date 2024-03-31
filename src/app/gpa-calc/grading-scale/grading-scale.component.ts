@@ -15,6 +15,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './grading-scale.component.html',
   styleUrl: './grading-scale.component.css'
 })
+
 export class GradingScaleComponent implements AfterViewInit{
   // @ViewChild(GpaCalcComponent) gpaCalcComponent!: GpaCalcComponent;
 
@@ -57,7 +58,11 @@ export class GradingScaleComponent implements AfterViewInit{
     //saves all the changes
     for(let i = 0; i < this.scales.length; i++)
     {
-      this.saveChanges(i);
+      console.log(i);
+      this.saveChanges(i, "Letter");
+      this.saveChanges(i, "PercentLow");
+      this.saveChanges(i, "PercentHigh");
+      this.saveChanges(i, "Regular");
     }
     this.sendCloseGS();
   }
@@ -76,17 +81,31 @@ export class GradingScaleComponent implements AfterViewInit{
     this.editedItem = { ...this.scales[index] };
   }
 
-  saveChanges(index: number) {
-    if (this.editIndex !== -1) {
+  saveChanges(index: number, column: string) {
 
-      let unweightedLetterGrade = document.getElementById("unweightedLetter" + index) as HTMLInputElement | null;
-      if(unweightedLetterGrade !== null)
-      {
-        this.scales[index].letterGrade = unweightedLetterGrade.value;
-      }
+      let unweightedElement = document.getElementById(`unweighted${column}${index}`) as HTMLInputElement;
+      console.log(unweightedElement.value);
       
-        this.editIndex = -1;
-    }
+      if(column == "Letter")
+      {
+        this.scales[index].letterGrade = unweightedElement.value;
+      }
+      else if(column == "PercentLow")
+      {
+        this.scales[index].percentGrade = Number(unweightedElement.value);
+      }
+      else if(column == "PercentHigh")
+      {
+        this.scales[index].percentGradeHi = Number(unweightedElement.value);
+      }
+      else if(column == "Regular")
+      {
+        this.scales[index].regular = Number(unweightedElement.value);
+      }
+      else
+      {
+        
+      }
   }
 }
 

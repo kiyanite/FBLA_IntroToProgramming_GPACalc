@@ -43,22 +43,22 @@
                         <tr class = "tableRow" *ngFor="let scale of scales; let i = index" (click)="editItem(i)">
                           <td class = "tableCell">
                             <ng-container>
-                              <input class="letterInput" id="unweightedLetter{{i}}" type="text" value="{{ scales[i].letterGrade }}"/>
+                              <input class="letterInput" type="text" id="unweightedLetter{{i}}" value="{{ scales[i].letterGrade }}"/>
                             </ng-container>
                           </td>
                           <td class = "tableCell">
                             <ng-container>
-                              <input class="percentInput" type="text" [(ngModel)]="scales[i].percentGrade" (blur)="saveChanges(i)" /> % -
+                              <input class="percentInput" type="text" id="unweightedPercentLow{{i}}" value="{{ scales[i].percentGrade }}" /> % -
                             </ng-container>
                           </td>
                           <td class = "tableCell">
                             <ng-container>
-                              <input class="percentInput" type="text" [(ngModel)]="scales[i].percentGradeHi" (blur)="saveChanges(i)" /> %
+                              <input class="percentInput" type="text" id="unweightedPercentHigh{{i}}" value="{{ scales[i].percentGradeHi}}" /> %
                             </ng-container>
                           </td>
                           <td class = "tableCell">
                             <ng-container>
-                              <input class="regularInput" type="text" [(ngModel)]="scales[i].regular" (blur)="saveChanges(i)" />
+                              <input class="regularInput" type="text" id="unweightedRegular{{i}}" value="{{ scales[i].regular }}" />
                             </ng-container>
                           </td>
                          
