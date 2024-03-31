@@ -655,7 +655,7 @@
             </tr>
           </thead>
           <tbody>
-            <!--
+            display the current value of scales
             <tr *ngFor="let scale of scales">
               <td>{{ scale.letterGrade }}</td>
               <td>{{ scale.percentGrade }} - {{ scale.percentGradeHi }}</td>
@@ -663,7 +663,7 @@
               <td>{{ scale.honors }}</td>
               <td>{{ scale.ap }}</td>
             </tr>
-          -->
+         
             <tr *ngFor="let scale of scales; let i = index" (dblclick)="editItem(i)">
               <td>
                 <ng-container *ngIf="editIndex !== i; else editMode">

@@ -10,7 +10,7 @@ This GPA Calculator is a simple tool designed to help students calculate their G
 
 - Features to be added soon include a new Schoology-powered GPA calculator that can access your grades directly from Schoology to more accurately calculate your GPA and perform other tasks. 
 
-Additional help is provided in both the Guide and the FAQ sections at the bottom if needed.
+- Additional help is provided in both the Guide and the FAQ sections at the bottom if needed.
 
 ## Features
 
@@ -37,7 +37,6 @@ Additional help is provided in both the Guide and the FAQ sections at the bottom
 - HTML5
 - CSS3
 - Typescript
-- StackBlitz
 
 
 ## Acknowledgements

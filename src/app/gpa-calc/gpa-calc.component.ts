@@ -539,10 +539,10 @@ export class GpaCalcComponent {
 searchScalesById(id: number)
 {
   var result = "";
-  for (let i = 0; i < scales.length; i++) {
-    if(scales[i].id == id)
+  for (let i = 0; i < this.scales.length; i++) {
+    if(this.scales[i].id == id)
     {
-      result = scales[i].letterGrade;
+      result = this.scales[i].letterGrade;
       console.log ("found!" + i);
     }
   }
@@ -692,11 +692,11 @@ searchScalesById(id: number)
   /* calculate the unweighted GPA by the percentage grade*/
   findGradeScoreByPercentageUnweighted(grade: string){
     var result = 0;
-    for(var i=0;i<scales.length;i++)
+    for(var i=0;i<this.scales.length;i++)
     {
-      if(parseInt(grade)>=scales[i].percentGrade)
+      if(parseInt(grade)>=this.scales[i].percentGrade)
       {
-         result = scales[i].regular;
+         result = this.scales[i].regular;
          break;
       }
     }
@@ -705,7 +705,7 @@ searchScalesById(id: number)
 
   /* calculate the unweighted GPA by the letter grade*/
   findGradeScoreUnWeighted(grade: number){
-    var currentScale = scales[Math.round(grade)];
+    var currentScale = this.scales[Math.round(grade)];
     return currentScale.regular;
   }
 
@@ -797,22 +797,22 @@ calculateTotalGPAUnWeighted(){
 /* calculate the weighted GPA by the percentage grade*/
 findGradeScoreByPercentageWeighted(grade: string, type: string){
   var result = 0;
-  for(var i=0;i<scales.length;i++)
+  for(var i=0;i<this.scales.length;i++)
   {
-    if(parseInt(grade)>=scales[i].percentGrade)
+    if(parseInt(grade)>=this.scales[i].percentGrade)
     {
       switch(type) {
         case "regular":
-          result = scales[i].regular;
+          result = this.scales[i].regular;
           break;
         case "honors":
-          result = scales[i].honors;
+          result = this.scales[i].honors;
           break;
         case "ap":
-          result = scales[i].ap;
+          result = this.scales[i].ap;
           break;
         default:
-          result = scales[i].regular;
+          result = this.scales[i].regular;
           break;
       }
       break;
@@ -823,7 +823,7 @@ findGradeScoreByPercentageWeighted(grade: string, type: string){
 
 /* calculate the weighted GPA by the grade and course type*/
 findGradeScoreWeighted(grade: number, type: string){
-  var currentScale = scales[Math.round(grade)];
+  var currentScale = this.scales[Math.round(grade)];
   var gradeNumber = 0;
   switch (type) {
     case "regular":
