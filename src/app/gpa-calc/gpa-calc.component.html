@@ -44,6 +44,24 @@
 </table>
 
 <button (click)="addRow()">Add Row</button>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    display the current value of scales
+    <tr *ngFor="let row of tableData">
+      <td>{{ row.name }}</td>
+      <td>{{ row.email }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
 <div id="bigDiv">
   <div id="title">
     <h1>GPA Calculator</h1>

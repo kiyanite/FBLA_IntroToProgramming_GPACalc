@@ -43,7 +43,7 @@
                         <tr class = "tableRow" *ngFor="let scale of scales; let i = index" (click)="editItem(i)">
                           <td class = "tableCell">
                             <ng-container>
-                              <input class="letterInput" type="text" [(ngModel)]="scales[i].letterGrade" (blur)="saveChanges(i)" />
+                              <input class="letterInput" id="unweightedLetter{{i}}" type="text" value="{{ scales[i].letterGrade }}"/>
                             </ng-container>
                           </td>
                           <td class = "tableCell">

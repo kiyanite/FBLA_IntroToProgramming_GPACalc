@@ -53,6 +53,12 @@ export class GradingScaleComponent implements AfterViewInit{
   save() {
     // this.saveChanges(this.editIndex);
     // this.sendScales();
+
+    //saves all the changes
+    for(let i = 0; i < this.scales.length; i++)
+    {
+      this.saveChanges(i);
+    }
     this.sendCloseGS();
   }
 
@@ -72,8 +78,14 @@ export class GradingScaleComponent implements AfterViewInit{
 
   saveChanges(index: number) {
     if (this.editIndex !== -1) {
-      this.scales[index] = { ...this.scales[index] };
-      this.editIndex = -1;
+
+      let unweightedLetterGrade = document.getElementById("unweightedLetter" + index) as HTMLInputElement | null;
+      if(unweightedLetterGrade !== null)
+      {
+        this.scales[index].letterGrade = unweightedLetterGrade.value;
+      }
+      
+        this.editIndex = -1;
     }
   }
 }
