@@ -3,10 +3,16 @@
 *  Protractor is used in this example for compatibility with Angular documentation tools.
 */
 import { bootstrapApplication,provideProtractorTestingSupport } from '@angular/platform-browser';
+import { provideRouter, withDebugTracing } from '@angular/router';
+import { APP_ROUTES } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
-bootstrapApplication(AppComponent,
-    {providers: [provideProtractorTestingSupport()]})
+bootstrapApplication(AppComponent,{
+  providers: [
+      provideProtractorTestingSupport(),
+      provideRouter(APP_ROUTES, withDebugTracing()),
+    ]
+  })
   .catch(err => console.error(err));
 
 

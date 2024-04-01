@@ -24,8 +24,6 @@
 
 <!-- <base href="/"> -->
 
-<app-grading-scale *ngIf="false"></app-grading-scale>
-
 <div id="bigDiv">
   <div id="title">
     <h1>GPA Calculator</h1>
@@ -48,8 +46,7 @@
   </div>
 
 <div>
-  <button 
-  (click)="onSaveFile()"> Go to Google Classroom API </button>
+    <button routerLink="/google-classroom/login"> Go to Google Classroom API </button>
 </div>
 
   <div id="resultTitle">
@@ -303,7 +300,7 @@
       </div>
 
       <div id="calculator">
-        <button (click)= "sendOpenGS()" id="gradingScaleButton"> Options </button>
+        <button (click)= "toggleGradingScale()" id="gradingScaleButton"> Options </button>
         <table>
           <thead>
             <tr>
@@ -565,4 +562,4 @@
 <div id="copyRight">Created by the Homestead FBLA Intro to Programming team. © 2024</div>
 </div>
 
-<!-- <app-grading-scale *ngIf = "showGradingScale" (buttonEvent)="receiveCloseGS($event)" [gradingScaleVisible]="showGradingScale"></app-grading-scale> -->
+<app-grading-scale *ngIf = "showGradingScale" (buttonEvent)="receiveCloseGS($event)" [gradingScaleVisible]="showGradingScale"></app-grading-scale>

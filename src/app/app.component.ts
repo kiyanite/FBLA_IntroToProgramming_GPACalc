@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { GpaCalcComponent } from './gpa-calc/gpa-calc.component';
 import { GradingScaleComponent } from './gpa-calc/grading-scale/grading-scale.component';
+import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,8 @@ import { CommonModule } from '@angular/common';
   imports: [
     GpaCalcComponent,
     GradingScaleComponent,
-    CommonModule
+    CommonModule,
+    RouterModule,
   ],
   templateUrl: './app.component.html',
 //   template: `<main>
@@ -26,19 +29,19 @@ import { CommonModule } from '@angular/common';
 export class AppComponent {
   title = 'GPA_CALC';
   
-  showGradingScale: boolean = false;
+  // showGradingScale: boolean = false;
 
   // toggleGradingScale(){
   //   this.showGradingScale = !this.showGradingScale;
   // }
 
-  receiveOpenGS($event: boolean) {
-    this.showGradingScale = $event;
-  }
+  // receiveOpenGS($event: boolean) {
+  //   this.showGradingScale = $event;
+  // }
 
-  receiveCloseGS($event: boolean) {
-    this.showGradingScale = $event;
-  }
+  // receiveCloseGS($event: boolean) {
+  //   this.showGradingScale = $event;
+  // }
 
 
 }

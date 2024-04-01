@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } from '@angular/forms';
 import { GradingScaleComponent } from './grading-scale/grading-scale.component';
+import { RouterModule, Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,8 @@ import { GradingScaleComponent } from './grading-scale/grading-scale.component';
     FormsModule, 
     CommonModule,
     ReactiveFormsModule,
-    GradingScaleComponent
+    GradingScaleComponent,
+    RouterModule,
   ],
   templateUrl: './gpa-calc.component.html',
   styleUrl: './gpa-calc.component.css'
@@ -26,16 +28,16 @@ import { GradingScaleComponent } from './grading-scale/grading-scale.component';
 
 export class GpaCalcComponent {
 
-  @Input() gradingScaleVisible: boolean = false;
+  // @Input() gradingScaleVisible: boolean = false;
 
   @Output() buttonEvent = new EventEmitter<boolean>();
 
-  constructor(){}
+  constructor(private router: Router){}
 
-  sendOpenGS(){
-    this.gradingScaleVisible = true;
-    this.buttonEvent.emit(this.gradingScaleVisible);
-  }
+  // sendOpenGS(){
+  //   this.gradingScaleVisible = true;
+  //   this.buttonEvent.emit(this.gradingScaleVisible);
+  // }
 
   // setScalesEqual($event: { id: number; letterGrade: string; percentGrade: number; percentGradeHi: number; regular: number; honors: number; ap: number; }[]) {
   //   this.scales = $event;
@@ -52,9 +54,13 @@ export class GpaCalcComponent {
 
    // variables in this class
 
-  // receiveCloseGS($event: boolean) {
-  //   this.showGradingScale = $event;
-  // }
+  navigateToAnotherURL() {
+    this.router.navigate(['/google-classroom/login']);
+  }
+
+  receiveCloseGS($event: boolean) {
+    this.showGradingScale = $event;
+  }
 
    gradeTable: any[] = [];
 
@@ -99,7 +105,7 @@ export class GpaCalcComponent {
   showQ8: boolean = false;
   showQ9: boolean = false;
   
-  // showGradingScale: boolean = false;
+  showGradingScale: boolean = false;
 
 
 
@@ -647,9 +653,9 @@ searchScalesById(id: number)
     this.showQ9 = ! this.showQ9;
   }
 
-  // toggleGradingScale(){
-  //   this.showGradingScale = !this.showGradingScale;
-  // }
+  toggleGradingScale(){
+    this.showGradingScale = !this.showGradingScale;
+  }
 
   
   /* construct the content string for the GPA report */
