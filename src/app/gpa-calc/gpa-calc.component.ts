@@ -63,9 +63,16 @@ export class GpaCalcComponent {
   }
 
    gradeTable: any[] = [];
+   
+  
 
    addRow() {
-     this.gradeTable.push({}); // Add an empty row
+      this.gradeTable.push({}); // Add an empty row
+      this.gradeTable[this.gradeTable.length - 1].courseName = "";
+      this.gradeTable[this.gradeTable.length - 1].grade = 1;
+      this.gradeTable[this.gradeTable.length - 1].gradePercent = 93;
+      this.gradeTable[this.gradeTable.length - 1].credit = 5;
+      this.gradeTable[this.gradeTable.length - 1].type = "regular";
    }
  
    removeRow(index: number) {
@@ -727,7 +734,15 @@ searchScalesById(id: number)
     return result;
   }
   
-  /* calculate the unweighted GPA by the percentage grade*/
+
+
+  /* calculate the unweighted GPA by the letter grade*/
+  findGradeScoreUnWeighted(grade: number){
+    var currentScale = this.scales[Math.round(grade)];
+    return currentScale.regular;
+  }
+
+    /* calculate the unweighted GPA by the percentage grade*/
   findGradeScoreByPercentageUnweighted(grade: string){
     var result = 0;
     for(var i=0;i<this.scales.length;i++)
@@ -739,12 +754,6 @@ searchScalesById(id: number)
       }
     }
     return result;
-  }
-
-  /* calculate the unweighted GPA by the letter grade*/
-  findGradeScoreUnWeighted(grade: number){
-    var currentScale = this.scales[Math.round(grade)];
-    return currentScale.regular;
   }
 
   /* calculate the unweighted GPA for a single course by the letter grade*/
@@ -763,38 +772,42 @@ searchScalesById(id: number)
 
 /* calculate the unweighted GPA for total courses by the letter grade*/  
 calculateTotalGPA(){
-  var firstGPA = this.calculateSingleGPAUnWeighted(this.firstGrade, this.firstCredit);
-  var secondGPA = this.calculateSingleGPAUnWeighted(this.secondGrade, this.secondCredit);
-  var thirdGPA = this.calculateSingleGPAUnWeighted(this.thirdGrade, this.thirdCredit);
-  var fourthGPA = this.calculateSingleGPAUnWeighted(this.fourthGrade, this.fourthCredit);
-  var fifthGPA = this.calculateSingleGPAUnWeighted(this.fifthGrade, this.fifthCredit);
-  var sixthGPA = this.calculateSingleGPAUnWeighted(this.sixthGrade, this.sixthCredit);
-  var seventhGPA = this.calculateSingleGPAUnWeighted(this.seventhGrade, this.seventhCredit);
-  var eighthGPA = this.calculateSingleGPAUnWeighted(this.eighthGrade, this.eighthCredit);
-  return firstGPA + secondGPA + thirdGPA + fourthGPA + fifthGPA + sixthGPA + seventhGPA + eighthGPA;
+  var currentGPA = 0;
+  var totalGPA = 0;
+  for(var i = 0; i < this.gradeTable.length; i++)
+  {
+    currentGPA = this.calculateSingleGPAUnWeighted(this.gradeTable[i].grade, this.gradeTable[i].credit);
+    totalGPA += currentGPA;
+  }
+
+  return totalGPA;
 }
 
 /* calculate the unweighted GPA for total courses by the percentage grade*/
 calculateTotalGPAPercentage(){
-  var firstGPA = this.calculateSingleGPAUnWeightedPercentage(this.firstGradePercent, this.firstCredit);
-  var secondGPA = this.calculateSingleGPAUnWeightedPercentage(this.secondGradePercent, this.secondCredit);
-  var thirdGPA = this.calculateSingleGPAUnWeightedPercentage(this.thirdGradePercent, this.thirdCredit);
-  var fourthGPA = this.calculateSingleGPAUnWeightedPercentage(this.fourthGradePercent, this.fourthCredit);
+  var currentGPA = 0;
+  var totalGPA = 0;
+  for(var i = 0; i < this.gradeTable.length; i++)
+  {
+    currentGPA = this.calculateSingleGPAUnWeightedPercentage(this.gradeTable[i].gradePercent, this.gradeTable[i].credit);
+    totalGPA += currentGPA;
+  }
 
-  var fifthGPA = this.calculateSingleGPAUnWeightedPercentage(this.fifthGradePercent, this.fifthCredit);
-  var sixthGPA = this.calculateSingleGPAUnWeightedPercentage(this.sixthGradePercent, this.sixthCredit);
-  var seventhGPA = this.calculateSingleGPAUnWeightedPercentage(this.seventhGradePercent, this.seventhCredit);
-  var eighthGPA = this.calculateSingleGPAUnWeightedPercentage(this.eighthGradePercent, this.eighthCredit);
-  return firstGPA + secondGPA + thirdGPA + fourthGPA + fifthGPA + sixthGPA + seventhGPA + eighthGPA;
+  return totalGPA;
 }
 
 /*calculate the unweighted GPA for all the courses
   This function is called in HTML*/
 calculateAllGPAUnWeighted(){
- var totalCredits = parseInt(this.firstCredit) + parseInt(this.secondCredit) + parseInt(this.thirdCredit) + parseInt(this.fourthCredit)
- + parseInt(this.fifthCredit) + parseInt(this.sixthCredit) + parseInt(this.seventhCredit) + parseInt(this.eighthCredit);
+var totalCredits = 0;
+ for(var i = 0; i < this.gradeTable.length; i++)
+ {
+    totalCredits += parseInt(this.gradeTable[i].credit);
+ }
+ console.log(totalCredits);
+
   var answer = 0;
-  if(totalCredits > 0)
+  if(totalCredits > 0 && !Number.isNaN(totalCredits))
   {
     if(this.gradeFormat=='LETTERS')
     {
@@ -812,20 +825,23 @@ calculateAllGPAUnWeighted(){
   This function is called in HTML*/
 calculateTotalGPAUnWeighted(){
   var allGrades = this.cumulativeGPA*parseInt(this.cumulativeCredit);
-  var totalCredits = parseInt(this.firstCredit) + parseInt(this.secondCredit) + parseInt(this.thirdCredit) + parseInt(this.fourthCredit) 
-  + parseInt(this.fifthCredit) + parseInt(this.sixthCredit) + parseInt(this.seventhCredit) + parseInt(this.eighthCredit) + parseInt(this.cumulativeCredit);
+
+  var totalCredits = parseInt(this.cumulativeCredit);
+  for(var i=0; i < this.gradeTable.length; i++)
+  {
+    totalCredits += parseInt(this.gradeTable[i].credit);
+  }
+
   var answer = 0;
   if(totalCredits > 0)
   {
     if(this.gradeFormat=='LETTERS')
     {
       allGrades += this.calculateTotalGPA();
-      answer = this.calculateTotalGPA() / totalCredits;
     }
     else if(this.gradeFormat=='PERCENTAGE')
     {
       allGrades += this.calculateTotalGPAPercentage();
-      answer = this.calculateTotalGPAPercentage() / totalCredits;
     }
     answer = allGrades / totalCredits;
   }
@@ -901,42 +917,37 @@ calculateSingleGPAWeightedPercent(grd: string, type: string, credit: string)
 /* calculate the weighted GPAfor all the courses
   This function is called in html*/
 calculateAllGPAWeighted(){
-  var firstGPA = 0;
-  var secondGPA = 0;
-  var thirdGPA = 0;
-  var fourthGPA = 0;
-  var fifthGPA = 0;
-  var sixthGPA = 0;
-  var seventhGPA = 0;
-  var eighthGPA = 0;
+  var currentGPA = 0;
+  var totalGPA = 0;
+
   if(this.gradeFormat=='LETTERS')
   {
-    firstGPA = this.calculateSingleGPAWeighted(this.firstGrade, this.firstType, this.firstCredit);
-    secondGPA = this.calculateSingleGPAWeighted(this.secondGrade, this.secondType, this.secondCredit);
-    thirdGPA = this.calculateSingleGPAWeighted(this.thirdGrade, this.thirdType, this.thirdCredit);
-    fourthGPA = this.calculateSingleGPAWeighted(this.fourthGrade, this.fourthType, this.fourthCredit);
-    fifthGPA = this.calculateSingleGPAWeighted(this.fifthGrade, this.fifthType, this.fifthCredit);
-    sixthGPA = this.calculateSingleGPAWeighted(this.sixthGrade, this.sixthType, this.sixthCredit);
-    seventhGPA = this.calculateSingleGPAWeighted(this.seventhGrade, this.seventhType, this.seventhCredit);
-    eighthGPA = this.calculateSingleGPAWeighted(this.eighthGrade, this.eighthType, this.eighthCredit);
+    for(var i = 0; i < this.gradeTable.length; i++)
+    {
+      currentGPA = this.calculateSingleGPAWeighted(this.gradeTable[i].grade, this.gradeTable[i].type, this.gradeTable[i].credit);
+      totalGPA += currentGPA;
+    }
   }
   else if(this.gradeFormat=='PERCENTAGE')
   {
-    firstGPA = this.calculateSingleGPAWeightedPercent(this.firstGradePercent, this.firstType, this.firstCredit);
-    secondGPA = this.calculateSingleGPAWeightedPercent(this.secondGradePercent, this.secondType, this.secondCredit);
-    thirdGPA = this.calculateSingleGPAWeightedPercent(this.thirdGradePercent, this.thirdType, this.thirdCredit);
-    fourthGPA = this.calculateSingleGPAWeightedPercent(this.fourthGradePercent, this.fourthType, this.fourthCredit);
-    fifthGPA = this.calculateSingleGPAWeightedPercent(this.fifthGradePercent, this.fifthType, this.fifthCredit);
-    sixthGPA = this.calculateSingleGPAWeightedPercent(this.sixthGradePercent, this.sixthType, this.sixthCredit);
-    seventhGPA = this.calculateSingleGPAWeightedPercent(this.seventhGradePercent, this.seventhType, this.seventhCredit);
-    eighthGPA = this.calculateSingleGPAWeightedPercent(this.eighthGradePercent, this.eighthType, this.eighthCredit);
+    for(var i = 0; i < this.gradeTable.length; i++)
+    {
+      currentGPA = this.calculateSingleGPAWeightedPercent(this.gradeTable[i].gradePercent, this.gradeTable[i].type, this.gradeTable[i].credit);
+      totalGPA += currentGPA;
+    }
+
   }
-  var totalCredits = parseInt(this.firstCredit) + parseInt(this.secondCredit) + parseInt(this.thirdCredit) + parseInt(this.fourthCredit)
-  + parseInt(this.fifthCredit) + parseInt(this.sixthCredit) + parseInt(this.seventhCredit) + parseInt(this.eighthCredit);
+
+  var totalCredits = 0;
+  for(var i = 0; i < this.gradeTable.length; i++)
+  {
+    totalCredits += parseInt(this.gradeTable[i].credit);
+  }
+
   var answer = 0;
   if(totalCredits > 0)
   {
-    answer = (firstGPA + secondGPA + thirdGPA + fourthGPA + fifthGPA + sixthGPA + seventhGPA + eighthGPA) / totalCredits;
+    answer = totalGPA / totalCredits;
   }
   return Math.round(answer*100)/100;
   }
