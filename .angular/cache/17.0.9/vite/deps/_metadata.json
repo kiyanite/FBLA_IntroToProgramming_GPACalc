@@ -1,47 +1,56 @@
 {
-  "hash": "9a6725b8",
-  "browserHash": "6d93bab0",
+  "hash": "d3a9aa1a",
+  "browserHash": "d15f63e6",
   "optimized": {
     "@angular/common": {
       "src": "../../../../../node_modules/@angular/common/fesm2022/common.mjs",
       "file": "@angular_common.js",
-      "fileHash": "00e01c92",
+      "fileHash": "077686db",
       "needsInterop": false
     },
     "@angular/core": {
       "src": "../../../../../node_modules/@angular/core/fesm2022/core.mjs",
       "file": "@angular_core.js",
-      "fileHash": "c368b5c2",
+      "fileHash": "6173b808",
       "needsInterop": false
     },
     "@angular/forms": {
       "src": "../../../../../node_modules/@angular/forms/fesm2022/forms.mjs",
       "file": "@angular_forms.js",
-      "fileHash": "cc36df66",
+      "fileHash": "e7e5da9b",
       "needsInterop": false
     },
     "@angular/platform-browser": {
       "src": "../../../../../node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs",
       "file": "@angular_platform-browser.js",
-      "fileHash": "112ef15a",
+      "fileHash": "53c9f4eb",
       "needsInterop": false
     },
     "@angular/router": {
       "src": "../../../../../node_modules/@angular/router/fesm2022/router.mjs",
       "file": "@angular_router.js",
-      "fileHash": "7355e866",
+      "fileHash": "f3a3376c",
+      "needsInterop": false
+    },
+    "angular-oauth2-oidc": {
+      "src": "../../../../../node_modules/angular-oauth2-oidc/fesm2022/angular-oauth2-oidc.mjs",
+      "file": "angular-oauth2-oidc.js",
+      "fileHash": "5a1357a4",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-6YAA32QX": {
-      "file": "chunk-6YAA32QX.js"
+    "chunk-4S2D5EIK": {
+      "file": "chunk-4S2D5EIK.js"
     },
-    "chunk-KGEAT5EH": {
-      "file": "chunk-KGEAT5EH.js"
+    "chunk-3QC3DRA4": {
+      "file": "chunk-3QC3DRA4.js"
     },
-    "chunk-THWPMT2E": {
-      "file": "chunk-THWPMT2E.js"
+    "chunk-5MUOGZWO": {
+      "file": "chunk-5MUOGZWO.js"
+    },
+    "chunk-66AWFF4Y": {
+      "file": "chunk-66AWFF4Y.js"
     }
   }
 }

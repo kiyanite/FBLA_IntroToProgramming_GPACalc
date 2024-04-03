@@ -5,6 +5,7 @@ import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+//import { GoogleApiService } from './google-api.service';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,9 @@ import { RouterModule } from '@angular/router';
 
 export class AppComponent {
   title = 'GPA_CALC';
-  
+
+ // constructor(private readonly google: GoogleApiService) {}
+
   // showGradingScale: boolean = false;
 
   // toggleGradingScale(){
