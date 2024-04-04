@@ -27,7 +27,6 @@ import { RouterModule, Router } from '@angular/router';
 
 
 export class GpaCalcComponent {
-
   // @Input() gradingScaleVisible: boolean = false;
 
   @Output() buttonEvent = new EventEmitter<boolean>();
