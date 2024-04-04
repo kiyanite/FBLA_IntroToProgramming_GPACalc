@@ -267,32 +267,7 @@
           </tr>
         </tbody>
       </table>
-      <button (click)="addRow()">Add Row</button>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Course Name</th>
-            <th scope="col">Grade</th>
-            <th scope="col">Grade Percent</th>
-            <th scope="col">Credits</th>
-            <th scope="col">Course Type</th>
-            <th scope="col">validPercentage</th>
-            <th scope="col">validCredit</th>
-          </tr>
-        </thead>
-        <tbody>
-          display the current value of grade table
-          <tr *ngFor="let row of gradeTable">
-            <td>{{ row.courseName }}</td>
-            <td>{{ row.grade }}</td>
-            <td>{{ row.gradePercent }}</td>
-            <td>{{ row.credit }}</td>
-            <td>{{ row.type }}</td>
-            <td>{{ row.validPercentage }}</td>
-            <td>{{ row.validCredit }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <button (click)="addRow()">Add Course</button>
       </div>
      <br>
       <div id="instructionTitle">
@@ -313,16 +288,7 @@
             </tr>
           </thead>
           <tbody>
-            display the current value of scales
-            <tr *ngFor="let scale of scales">
-              <td>{{ scale.letterGrade }}</td>
-              <td>{{ scale.percentGrade }} - {{ scale.percentGradeHi }}</td>
-              <td>{{ scale.regular }}</td>
-              <td>{{ scale.honors }}</td>
-              <td>{{ scale.ap }}</td>
-            </tr>
-         
-            <tr *ngFor="let scale of scales; let i = index" (dblclick)="editItem(i)">
+              <tr *ngFor="let scale of scales; let i = index" (dblclick)="editItem(i)">
               <td>
                 <ng-container *ngIf="editIndex !== i; else editMode">
                   {{  scale.letterGrade }}

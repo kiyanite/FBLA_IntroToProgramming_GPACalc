@@ -73,6 +73,8 @@ export class GpaCalcComponent {
       this.gradeTable[this.gradeTable.length - 1].gradePercent = 93;
       this.gradeTable[this.gradeTable.length - 1].credit = 5;
       this.gradeTable[this.gradeTable.length - 1].type = "regular";
+      this.gradeTable[this.gradeTable.length - 1].validPercentage = true;
+      this.gradeTable[this.gradeTable.length - 1].validCredit = true;
    }
  
    removeRow(index: number) {
@@ -130,56 +132,9 @@ export class GpaCalcComponent {
   semesterTitle: string= "";
 
   /* variables for every course name, grade, percentage grade, credit, and course type from the user input */
-  firstCourseName: string = "";
-  firstGrade: number = 1;
-  firstGradePercent: string = "93";
-  firstCredit: string = "0";
-  firstType: string = "regular";
-
-  secondCourseName: string = "";
-  secondGrade: number = 1;
-  secondGradePercent: string = "93";
-  secondCredit: string = "0";
-  secondType: string = "regular";
-
-  thirdCourseName: string = "";
-  thirdGrade: number = 1;
-  thirdGradePercent: string = "93";
-  thirdCredit: string = "0";
-  thirdType: string = "regular";
-
-  fourthCourseName: string = "";
-  fourthGrade: number = 1;
-  fourthGradePercent: string = "93";
-  fourthCredit: string = "0";
-  fourthType: string = "regular";
-
-  fifthCourseName: string = "";
-  fifthGrade: number = 1;
-  fifthGradePercent: string = "93";
-  fifthCredit: string = "0";
-  fifthType: string = "regular";
-
-  sixthCourseName: string = "";
-  sixthGrade: number = 1;
-  sixthGradePercent: string = "93";
-  sixthCredit: string = "0";
-  sixthType: string = "regular";
-
-  seventhCourseName: string = "";
-  seventhGrade: number = 1;
-  seventhGradePercent: string = "93";
-  seventhCredit: string = "0";
-  seventhType: string = "regular";
-
-  eighthCourseName: string = "";
-  eighthGrade: number = 1;
-  eighthGradePercent: string = "93";
-  eighthCredit: string = "0";
-  eighthType: string = "regular";
-
+  
   /* the file name and file extension to generate GPA report from the user input */
-  saveFileName: string = "";
+  saveFileName: string = "fileName";
   saveFileExtension: string = '';
 
   /* checkbox values for the options to be included in the GPA report from the user input checkboxes */
@@ -254,313 +209,7 @@ export class GpaCalcComponent {
       }
     }
 
-  /*validate credit is a positve integer for GPA report */
-  validateFirstCredit()
-  {
-    this.validFirstCredit = true;
-    if(this.firstCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFirstCredit = false;
-    }
-    else
-    {
-      let number = Number(this.firstCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validFirstCredit = false;
-      }
-    }
-  }
-
- /*validate credit is a positve integer for GPA report */
- validateSecondCredit()
- {
-   this.validSecondCredit = true;
-   if(this.secondCredit.length == 0)
-   {
-     //do input validation here, if there is empty string, report error on the GUI
-     this.validSecondCredit = false;
-   }
-   else
-   {
-     let number = Number(this.secondCredit);
-     let isInteger = Number.isInteger(number);
-     if(!isInteger || (number < 0))
-     { // if this is not a positive integer
-       this.validSecondCredit = false;
-     }
-   }
- }
-
-  validateThirdCredit()
-  {
-    this.validThirdCredit = true;
-    if(this.thirdCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validThirdCredit = false;
-    }
-    else
-    {
-      let number = Number(this.thirdCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validThirdCredit = false;
-      }
-    }
-  }
- 
-  validateFourthCredit()
-  {
-    this.validFourthCredit = true;
-    if(this.fourthCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFourthCredit = false;
-    }
-    else
-    {
-      let number = Number(this.fourthCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validFourthCredit = false;
-      }
-    }
-  }
-
-  validateFifthCredit()
-  {
-    this.validFifthCredit = true;
-    if(this.fifthCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFifthCredit = false;
-    }
-    else
-    {
-      let number = Number(this.fifthCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validFifthCredit = false;
-      }
-    }
-  }
-
-  validateSixthCredit()
-  {
-    this.validSixthCredit = true;
-    if(this.sixthCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validSixthCredit = false;
-    }
-    else
-    {
-      let number = Number(this.sixthCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validSixthCredit = false;
-      }
-    }
-  }
-
-  validateSeventhCredit()
-  {
-    this.validSeventhCredit = true;
-    if(this.seventhCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validSeventhCredit = false;
-    }
-    else
-    {
-      let number = Number(this.seventhCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validSeventhCredit = false;
-      }
-    }
-  }
-
-  validateEighthCredit()
-  {
-    this.validEighthCredit = true;
-    if(this.eighthCredit.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validEighthCredit = false;
-    }
-    else
-    {
-      let number = Number(this.eighthCredit);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive integer
-        this.validEighthCredit = false;
-      }
-    }
-  }
-
-  /*validate percentage grade is valid, it's a number >=0 */
-  validateFirstPerentage()
-  {
-    this.validFirstPercentage = true;
-    if(this.firstGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFirstPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.firstGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validFirstPercentage = false;
-      }
-    }
-  }
-
-  validateSecondPerentage()
-  {
-    this.validSecondPercentage = true;
-    if(this.secondGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validSecondPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.secondGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validSecondPercentage = false;
-      }
-    }
-  }
-
-  validateThirdPerentage()
-  {
-    this.validThirdPercentage = true;
-    if(this.thirdGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validThirdPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.thirdGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validThirdPercentage = false;
-      }
-    }
-  }
-
-  validateFourthPerentage()
-  {
-    this.validFourthPercentage = true;
-    if(this.fourthGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFourthPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.fourthGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validFourthPercentage = false;
-      }
-    }
-  }
-
-  validateFifthPerentage()
-  {
-    this.validFifthPercentage = true;
-    if(this.fifthGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validFifthPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.fifthGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validFifthPercentage = false;
-      }
-    }
-  }
-
-  validateSixthPerentage()
-  {
-    this.validSixthPercentage = true;
-    if(this.sixthGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validSixthPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.sixthGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validSixthPercentage = false;
-      }
-    }
-  }
-
-  validateSeventhPerentage()
-  {
-    this.validSeventhPercentage = true;
-    if(this.seventhGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validSeventhPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.seventhGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validSeventhPercentage = false;
-      }
-    }
-  }
-
-  validateEighthPerentage()
-  {
-    this.validEighthPercentage = true;
-    if(this.eighthGradePercent.length == 0)
-    {
-      //do input validation here, if there is empty string, report error on the GUI
-      this.validEighthPercentage = false;
-    }
-    else
-    {
-      let number = Number(this.eighthGradePercent);
-      let isInteger = Number.isInteger(number);
-      if(!isInteger || (number < 0))
-      { // if this is not a positive number
-        this.validEighthPercentage = false;
-      }
-    }
-  }
-
+  
   /* save the generated GPA report to file*/
   onSaveFile()
   {
@@ -574,6 +223,7 @@ export class GpaCalcComponent {
     link.remove(); 
   }
 
+  
   /*sends you to the google sign-in page*/
   // onSignIn(){
   //   link.href = 
@@ -700,32 +350,20 @@ searchScalesById(id: number)
     var detailString = "";
     if(this.checkDetailGPA)
     {
-      if(this.gradeFormat=='LETTERS')
+      detailString = "Below is the table showing the details:\n------------------------------------------------\n" +
+      "\n| Course Name  | Grade | Credits | Course Type |\n";
+      for(var i = 0; i < this.gradeTable.length; i++)
       {
-        detailString = "Below is the table showing the details:\n" +
-        "|Course Name  | Grade | Credits | Course Type\n" +
-        "|" + this.firstCourseName + " | " + this.searchScalesById(this.firstGrade).toString() + " | " + this.firstCredit.toString() + " | " + this.firstType + " | " + "\n" +
-        "|" + this.secondCourseName + " | " + this.searchScalesById(this.secondGrade).toString() + " | " + this.secondCredit.toString() + " | " + this.secondType + " | " + "\n" +
-        "|" + this.thirdCourseName + " | " + this.searchScalesById(this.thirdGrade).toString() + " | " + this.thirdCredit.toString() + " | " + this.thirdType + " | " + "\n" +
-        "|" + this.fourthCourseName + " | " + this.searchScalesById(this.fourthGrade).toString() + " | " + this.fourthCredit.toString() + " | " + this.fourthType + " | " + "\n" +
-        "|" + this.fifthCourseName + " | " + this.searchScalesById(this.fifthGrade).toString() + " | " + this.fifthCredit.toString() + " | " + this.fifthType + " | " + "\n" +
-        "|" + this.sixthCourseName + " | " + this.searchScalesById(this.sixthGrade).toString() + " | " + this.sixthCredit.toString() + " | " + this.sixthType + " | " + "\n" +
-        "|" + this.seventhCourseName + " | " + this.searchScalesById(this.seventhGrade).toString() + " | " + this.seventhCredit.toString() + " | " + this.seventhType + " | " + "\n" +
-        "|" + this.eighthCourseName + " | " + this.searchScalesById(this.eighthGrade).toString() + " | " + this.eighthCredit.toString() + " | " + this.eighthType + " | " + "\n";
+        if(this.gradeFormat=='LETTERS')
+        {
+          detailString += "| " + this.gradeTable[i].courseName + " | " + this.searchScalesById(this.gradeTable[i].grade).toString() + " | " + this.gradeTable[i].credit.toString() + " | " + this.gradeTable[i].type + " | " + "\n";
+        }
+        else if(this.gradeFormat=='PERCENTAGE')
+        {
+          detailString += "| " + this.gradeTable[i].courseName + " | " + this.gradeTable[i].gradePercent+ " | " + this.gradeTable[i].credit.toString() + " | " + this.gradeTable[i].type + " | " + "\n";
+        }
       }
-      else if(this.gradeFormat=='PERCENTAGE')
-      {
-        detailString = "Below is the table showing the details:\n" +
-        "|Course Name  | Grade | Credits | Course Type\n" +
-        "|" + this.firstCourseName + " | " + this.firstGradePercent + " | " + this.firstCredit.toString() + " | " + this.firstType + " | " + "\n" +
-        "|" + this.secondCourseName + " | " + this.secondGradePercent + " | " + this.secondCredit.toString() + " | " + this.secondType + " | " + "\n" +
-        "|" + this.thirdCourseName + " | " + this.thirdGradePercent + " | " + this.thirdCredit.toString() + " | " + this.thirdType + " | " + "\n" +
-        "|" + this.fourthCourseName + " | " + this.fourthGradePercent + " | " + this.fourthCredit.toString() + " | " + this.fourthType + " | " + "\n" +
-        "|" + this.fifthCourseName + " | " + this.fifthGradePercent + " | " + this.fifthCredit.toString() + " | " + this.fifthType + " | " + "\n" +
-        "|" + this.sixthCourseName + " | " + this.sixthGradePercent+ " | " + this.sixthCredit.toString() + " | " + this.sixthType + " | " + "\n" +
-        "|" + this.seventhCourseName + " | " + this.seventhGradePercent + " | " + this.seventhCredit.toString() + " | " + this.seventhType + " | " + "\n" +
-        "|" + this.eighthCourseName + " | " + this.eighthGradePercent + " | " + this.eighthCredit.toString() + " | " + this.eighthType + " | " + "\n";
-      }
+      detailString += "------------------------------------------------\n";
     }
 
     var result = 
