@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc' 
+import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 const oAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
@@ -22,7 +22,7 @@ export class GoogleApiService {
           oAuthService.initLoginFlow()
         }
         else{
-          oAuthService.loadUserProfile().then( (userProfile) => {
+          oAuthService.loadUserProfile().then( (userProfile: any) => {
             console.log(JSON.stringify(userProfile))
           })
         }
