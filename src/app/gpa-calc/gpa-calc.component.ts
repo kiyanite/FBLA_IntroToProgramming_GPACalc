@@ -33,69 +33,15 @@ export class GpaCalcComponent {
 
   constructor(private router: Router){}
 
-  // sendOpenGS(){
-  //   this.gradingScaleVisible = true;
-  //   this.buttonEvent.emit(this.gradingScaleVisible);
-  // }
-
-  // setScalesEqual($event: { id: number; letterGrade: string; percentGrade: number; percentGradeHi: number; regular: number; honors: number; ap: number; }[]) {
-  //   this.scales = $event;
-  // }
-
-  // @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
-
-  // toggleGradingScale()
-  // {
-  //   this.toggle.emit();
-  // }
-
   // variables in this class
 
-   // variables in this class
+  // array that holds the information for the course information
+  gradeTable: any[] = [];
 
-  navigateToAnotherURL() {
-    this.router.navigate(['/google-classroom/login']);
-  }
-
-  receiveCloseGS($event: boolean) {
-    this.showGradingScale = $event;
-  }
-
-   gradeTable: any[] = [];
-   
+  // variables for editing the grading scale
+  editIndex: number | null = null;
+  editedItem: any = {};
   
-
-   addRow() {
-      this.gradeTable.push({}); // Add an empty row
-      this.gradeTable[this.gradeTable.length - 1].courseName = "";
-      this.gradeTable[this.gradeTable.length - 1].grade = 1;
-      this.gradeTable[this.gradeTable.length - 1].gradePercent = 93;
-      this.gradeTable[this.gradeTable.length - 1].credit = 5;
-      this.gradeTable[this.gradeTable.length - 1].type = "regular";
-      this.gradeTable[this.gradeTable.length - 1].validPercentage = true;
-      this.gradeTable[this.gradeTable.length - 1].validCredit = true;
-   }
- 
-   removeRow(index: number) {
-     this.gradeTable.splice(index, 1); // Remove row at the specified index
-   }
-   
- 
-   editIndex: number | null = null;
-   editedItem: any = {};
- 
-   editItem(index: number) {
-     this.editIndex = index;
-     this.editedItem = { ...this.scales[index] };
-   }
- 
-   saveChanges(index: number) {
-     if (this.editIndex !== null) {
-       this.scales[index] = { ...this.editedItem };
-       this.editIndex = null;
-     }
-   }
- 
   /* scale table object used for html display */
   scales = [...scales];
 
@@ -113,9 +59,8 @@ export class GpaCalcComponent {
   showQ8: boolean = false;
   showQ9: boolean = false;
   
+  // boolean variable to show/hide grading scale
   showGradingScale: boolean = false;
-
-
 
   /* flag to show if the file name or file extension is valid */
   validFileName: boolean = true;
@@ -164,6 +109,47 @@ export class GpaCalcComponent {
   validEighthPercentage: boolean =  true;
 
   // functions in this class
+
+   // unused (navigates to login page)
+   navigateToAnotherURL() {
+    this.router.navigate(['/google-classroom/login']);
+  }
+
+  // recieves command to close the grading scale
+  receiveCloseGS($event: boolean) {
+    this.showGradingScale = $event;
+  }
+
+  // adds a row to the course information table
+   addRow() {
+      this.gradeTable.push({}); // Add an empty row
+      this.gradeTable[this.gradeTable.length - 1].courseName = "";
+      this.gradeTable[this.gradeTable.length - 1].grade = 1;
+      this.gradeTable[this.gradeTable.length - 1].gradePercent = 93;
+      this.gradeTable[this.gradeTable.length - 1].credit = 0;
+      this.gradeTable[this.gradeTable.length - 1].type = "regular";
+      this.gradeTable[this.gradeTable.length - 1].validPercentage = true;
+      this.gradeTable[this.gradeTable.length - 1].validCredit = true;
+   }
+ 
+   // removes a row from the course information table
+   removeRow(index: number) {
+     this.gradeTable.splice(index, 1); // Remove row at the specified index
+   }
+ 
+   // saves information about selected row of the grading scale table
+   editItem(index: number) {
+     this.editIndex = index;
+     this.editedItem = { ...this.scales[index] };
+   }
+ 
+   // saves the edits made to a row in the grading scale table
+   saveChanges(index: number) {
+     if (this.editIndex !== null) {
+       this.scales[index] = { ...this.editedItem };
+       this.editIndex = null;
+     }
+   }
 
   /*validate file name for GPA report */
   validateFileName()
