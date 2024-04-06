@@ -6,6 +6,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 //import { GoogleApiService } from './google-api.service';
+import { NgModule } from "@angular/core";
+
+import { HttpClientModule } from '@angular/common/http';
+@NgModule({
+  imports: [
+    BrowserModule,
+    // import HttpClientModule after BrowserModule.
+    HttpClientModule,
+  ]
+})
+export class AppModule {}
 
 @Component({
   selector: 'app-root',
