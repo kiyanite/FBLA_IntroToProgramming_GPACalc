@@ -522,6 +522,11 @@ var HttpParams = class _HttpParams {
     }
   }
 };
+var HttpContextToken = class {
+  constructor(defaultValue) {
+    this.defaultValue = defaultValue;
+  }
+};
 var HttpContext = class {
   constructor() {
     this.map = /* @__PURE__ */ new Map();
@@ -1816,6 +1821,15 @@ function provideHttpClient(...features) {
   }
   return makeEnvironmentProviders(providers);
 }
+function withInterceptors(interceptorFns) {
+  return makeHttpFeature(HttpFeatureKind.Interceptors, interceptorFns.map((interceptorFn) => {
+    return {
+      provide: HTTP_INTERCEPTOR_FNS,
+      useValue: interceptorFn,
+      multi: true
+    };
+  }));
+}
 var LEGACY_INTERCEPTOR_FN = new InjectionToken("LEGACY_INTERCEPTOR_FN");
 function withInterceptorsFromDi() {
   return makeHttpFeature(HttpFeatureKind.LegacyInterceptors, [{
@@ -1860,6 +1874,33 @@ function withJsonpSupport() {
     provide: HTTP_INTERCEPTOR_FNS,
     useValue: jsonpInterceptorFn,
     multi: true
+  }]);
+}
+function withRequestsMadeViaParent() {
+  return makeHttpFeature(HttpFeatureKind.RequestsMadeViaParent, [{
+    provide: HttpBackend,
+    useFactory: () => {
+      const handlerFromParent = inject(HttpHandler, {
+        skipSelf: true,
+        optional: true
+      });
+      if (ngDevMode && handlerFromParent === null) {
+        throw new Error("withRequestsMadeViaParent() can only be used when the parent injector also configures HttpClient");
+      }
+      return handlerFromParent;
+    }
+  }]);
+}
+function withFetch() {
+  if ((typeof ngDevMode === "undefined" || ngDevMode) && typeof fetch !== "function") {
+    throw new Error("The `withFetch` feature of HttpClient requires the `fetch` API to be available. If you run the code in a Node environment, make sure you use Node v18.10 or later.");
+  }
+  return makeHttpFeature(HttpFeatureKind.Fetch, [FetchBackend, {
+    provide: HttpBackend,
+    useExisting: FetchBackend
+  }, {
+    provide: PRIMARY_HTTP_BACKEND,
+    useExisting: FetchBackend
   }]);
 }
 var _HttpClientXsrfModule = class _HttpClientXsrfModule {
@@ -2132,10 +2173,41 @@ function appendMissingHeadersDetection(url, headers, headersToInclude) {
 }
 
 export {
+  HttpHandler,
+  HttpBackend,
   HttpHeaders,
+  HttpUrlEncodingCodec,
   HttpParams,
+  HttpContextToken,
+  HttpContext,
+  HttpRequest,
+  HttpEventType,
+  HttpResponseBase,
+  HttpHeaderResponse,
+  HttpResponse,
+  HttpErrorResponse,
   HttpClient,
+  FetchBackend,
   HTTP_INTERCEPTORS,
+  HTTP_ROOT_INTERCEPTOR_FNS,
+  PRIMARY_HTTP_BACKEND,
+  HttpInterceptorHandler,
+  JsonpClientBackend,
+  JsonpInterceptor,
+  HttpXhrBackend,
+  HttpXsrfTokenExtractor,
+  HttpFeatureKind,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
+  withXsrfConfiguration,
+  withNoXsrfProtection,
+  withJsonpSupport,
+  withRequestsMadeViaParent,
+  withFetch,
+  HttpClientXsrfModule,
+  HttpClientModule,
+  HttpClientJsonpModule,
   withHttpTransferCache
 };
 /*! Bundled license information:
@@ -2147,4 +2219,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-3QC3DRA4.js.map
+//# sourceMappingURL=chunk-JERXRU7E.js.map
