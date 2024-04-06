@@ -9,7 +9,16 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, FormControl, ReactiveFormsModule, FormArray, Validators } from '@angular/forms';
 import { GradingScaleComponent } from './grading-scale/grading-scale.component';
 import { RouterModule, Router } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
+@NgModule({
+  imports: [
+    BrowserModule,
+    // import HttpClientModule after BrowserModule.
+    HttpClientModule,
+  ]
+})
+export class AppModule {}
 
 @Component({
   selector: 'app-gpa-calc',
