@@ -7,9 +7,9 @@ import { LoginErrorComponent } from "./login-error/login-error.component";
 
 export const APP_ROUTES: Routes = [
     // { path: '', redirectTo: '/gpa-calc', pathMatch: 'full' },
-    // { path: 'gpa-calc', component: GpaCalcComponent},
     // { path: 'google-classroom/login', component: LoginComponent},
     { path: '', redirectTo: '/gpa-calc', pathMatch: 'full' },
+    { path: 'gpa-calc', component: GpaCalcComponent},
     { path: 'login', component: LoginComponent },
     { path: 'gpa-auto', component: GpaAutoComponent },
     { path: 'login-error', component: LoginErrorComponent },
