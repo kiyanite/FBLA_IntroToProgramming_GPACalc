@@ -15,6 +15,7 @@ import {
   HammerGestureConfig,
   HammerGesturesPlugin,
   HammerModule,
+  HydrationFeatureKind,
   INTERNAL_BROWSER_PLATFORM_PROVIDERS,
   KeyEventsPlugin,
   Meta,
@@ -34,12 +35,12 @@ import {
   provideProtractorTestingSupport,
   withHttpTransferCacheOptions,
   withNoHttpTransferCache
-} from "./chunk-D2AEFTDL.js";
-import "./chunk-JERXRU7E.js";
+} from "./chunk-KH3J4JUL.js";
+import "./chunk-FSZNHT2R.js";
 import {
   getDOM
-} from "./chunk-5MUOGZWO.js";
-import "./chunk-66AWFF4Y.js";
+} from "./chunk-LN4EGFZP.js";
+import "./chunk-DNY4HK3M.js";
 export {
   BrowserModule,
   By,
@@ -51,6 +52,7 @@ export {
   HAMMER_LOADER,
   HammerGestureConfig,
   HammerModule,
+  HydrationFeatureKind,
   Meta,
   REMOVE_STYLES_ON_COMPONENT_DESTROY,
   Title,
