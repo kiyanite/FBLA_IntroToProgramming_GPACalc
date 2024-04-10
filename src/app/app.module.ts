@@ -25,23 +25,23 @@
 
 // export class AppModule { }
 
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
+// import { CommonModule } from '@angular/common';
+// import { NgModule } from '@angular/core';
 
-import { GpaAutoComponent } from './gpa-auto/gpa-auto.component';
+// import { GpaAutoComponent } from './gpa-auto/gpa-auto.component';
 
-@NgModule({
-  declarations: [
-    GpaAutoComponent
-  ],
-  imports: [
-    CommonModule
-  ],
-  exports: [
-    GpaAutoComponent
-  ]
-})
-export class AppModule { }
+// @NgModule({
+//   declarations: [
+//     GpaAutoComponent
+//   ],
+//   imports: [
+//     CommonModule
+//   ],
+//   exports: [
+//     GpaAutoComponent
+//   ]
+// })
+// export class AppModule { }
 
 // import { BrowserModule } from '@angular/platform-browser';
 // import { NgModule } from '@angular/core';
@@ -60,3 +60,23 @@ export class AppModule { }
 //   bootstrap: [AppComponent]
 // })
 // export class AppModule { }
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { GpaAutoModule } from './gpa-auto/gpa-auto.module'; // Import GpaAutoModule
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    GpaAutoModule // Add this line
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

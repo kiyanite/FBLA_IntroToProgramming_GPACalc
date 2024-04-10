@@ -24,10 +24,10 @@ declare var gapi: any; // Add this line to declare the gapi variable
 
 @Component({
   selector: 'app-gpa-auto',
-  standalone: true,
-  imports: [],
+  //standalone: true,
+  //imports: [],
   templateUrl: './gpa-auto.component.html',
-  styleUrl: './gpa-auto.component.css'
+  styleUrls: ['./gpa-auto.component.css']
 })
 export class GpaAutoComponent implements OnInit {
   accessToken: string = '';
