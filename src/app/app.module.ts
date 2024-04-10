@@ -24,3 +24,39 @@
 // })
 
 // export class AppModule { }
+
+// import { CommonModule } from '@angular/common';
+// import { NgModule } from '@angular/core';
+
+// import { GpaAutoComponent } from './gpa-auto/gpa-auto.component';
+
+// @NgModule({
+//   declarations: [
+//     GpaAutoComponent
+//   ],
+//   imports: [
+//     CommonModule
+//   ],
+//   exports: [
+//     GpaAutoComponent
+//   ]
+// })
+// export class GpaAutoModule { }
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppComponent } from './app.component';
+import { GpaAutoModule } from './gpa-auto/gpa-auto.module'; // Import GpaAutoModule
+
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    GpaAutoModule // Add this line
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }

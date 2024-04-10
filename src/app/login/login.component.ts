@@ -15,7 +15,7 @@ export class LoginComponent {
       '?response_type=token' +
       '&client_id=' + encodeURIComponent(this.CLIENT_ID) +
       '&redirect_uri=' + encodeURIComponent(this.REDIRECT_URI) +
-      '&scope=' + encodeURIComponent('https://www.googleapis.com/auth/classroom.coursework.students');
+      '&scope=' + encodeURIComponent('https://www.googleapis.com/auth/classroom.courses.readonly');
 
     window.location.href = authUrl;
   }
