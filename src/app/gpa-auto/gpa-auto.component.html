@@ -1,8 +1,15 @@
-<p>gpa-auto works!</p>
+<!-- <p>gpa-auto works!</p>
 <ul>
     <li *ngFor="let course of courses">
       {{ course.name }}
     </li>
   </ul>
 
-  
+   -->
+
+   <div *ngFor="let course of courses">
+    <h2>{{ course.name }}</h2>
+    <p *ngFor="let grade of course.grades">
+      {{ grade }}
+    </p>
+  </div>

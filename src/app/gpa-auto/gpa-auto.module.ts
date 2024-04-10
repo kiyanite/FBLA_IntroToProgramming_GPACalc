@@ -1,5 +1,5 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common'; // Make sure this line is here
 import { GpaAutoComponent } from './gpa-auto.component';
 
 @NgModule({
@@ -7,7 +7,7 @@ import { GpaAutoComponent } from './gpa-auto.component';
     GpaAutoComponent
   ],
   imports: [
-    CommonModule // And this line
+    CommonModule
   ],
   exports: [
     GpaAutoComponent
