@@ -103,24 +103,33 @@ export class GpaAutoComponent implements OnInit {
               this.courses = response.result.courses; // Save the courses to display in the template
               console.log(response.result.courses);
 
-              // For each course, get the student's submissions (which include the grades)
+              // For each course, get the course work
               this.courses.forEach((course: any) => {
-                gapi.client.classroom.courses.courseWork.studentSubmissions.list({courseId: course.id})
+                gapi.client.classroom.courses.courseWork.list({courseId: course.id})
                   .then((response: any) => {
-                    const grades = response.result.studentSubmissions.map((submission: any) => submission.assignedGrade);
-                    console.log('Grades for course ' + course.name + ':', grades);
-                    course.grades = grades; // Save the grades to the course object
+                    // For each course work, get the student's submissions (which include the grades)
+                    response.result.courseWork.forEach((courseWork: any) => {
+                      gapi.client.classroom.courses.courseWork.studentSubmissions.list({courseId: course.id, courseWorkId: courseWork.id})
+                        .then((response: any) => {
+                          const grades = response.result.studentSubmissions.map((submission: any) => submission.assignedGrade);
+                          console.log('[TEST] Grades for course ' + course.name + ':', grades);
+                          course.grades = grades; // Save the grades to the course object
+                        })
+                        .catch((error: any) => {
+                          console.log('[TEST] An error occurred while getting the grades:', error);
+                        });
+                    });
                   })
                   .catch((error: any) => {
-                    console.log('An error occurred while getting the grades:', error);
+                    console.log('[TEST] An error occurred while getting the course work:', error);
                   });
               });
             })
             .catch((error: any) => {
               if (error.status === 401) {
-                console.log('Access token is not valid or has expired');
+                console.log('[TEST] Access token is not valid or has expired');
               } else {
-                console.log('An error occurred:', error);
+                console.log('[TEST] An error occurred:', error);
               }
             });
         });
