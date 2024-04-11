@@ -73,6 +73,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 declare var gapi: any; // Add this line to declare the gapi variable
 
@@ -81,7 +82,8 @@ declare var gapi: any; // Add this line to declare the gapi variable
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    OAuthModule
   ],
   templateUrl: './gpa-auto.component.html',
   styleUrls: ['./gpa-auto.component.css']
