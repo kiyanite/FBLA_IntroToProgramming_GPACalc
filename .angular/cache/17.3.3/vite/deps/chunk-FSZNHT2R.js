@@ -3,7 +3,7 @@ import {
   XhrFactory,
   isPlatformServer,
   parseCookieValue
-} from "./chunk-5MUOGZWO.js";
+} from "./chunk-LN4EGFZP.js";
 import {
   APP_BOOTSTRAP_LISTENER,
   ApplicationRef,
@@ -43,7 +43,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-66AWFF4Y.js";
+} from "./chunk-DNY4HK3M.js";
 
 // node_modules/@angular/common/fesm2022/http.mjs
 var HttpHandler = class {
@@ -640,12 +640,8 @@ var HttpRequest = class _HttpRequest {
       }
       this.transferCache = options.transferCache;
     }
-    if (!this.headers) {
-      this.headers = new HttpHeaders();
-    }
-    if (!this.context) {
-      this.context = new HttpContext();
-    }
+    this.headers ??= new HttpHeaders();
+    this.context ??= new HttpContext();
     if (!this.params) {
       this.params = new HttpParams();
       this.urlWithParams = url;
@@ -668,7 +664,7 @@ var HttpRequest = class _HttpRequest {
     if (this.body === null) {
       return null;
     }
-    if (isArrayBuffer(this.body) || isBlob(this.body) || isFormData(this.body) || isUrlSearchParams(this.body) || typeof this.body === "string") {
+    if (typeof this.body === "string" || isArrayBuffer(this.body) || isBlob(this.body) || isFormData(this.body) || isUrlSearchParams(this.body)) {
       return this.body;
     }
     if (this.body instanceof HttpParams) {
@@ -713,9 +709,10 @@ var HttpRequest = class _HttpRequest {
     const method = update.method || this.method;
     const url = update.url || this.url;
     const responseType = update.responseType || this.responseType;
+    const transferCache = update.transferCache ?? this.transferCache;
     const body = update.body !== void 0 ? update.body : this.body;
-    const withCredentials = update.withCredentials !== void 0 ? update.withCredentials : this.withCredentials;
-    const reportProgress = update.reportProgress !== void 0 ? update.reportProgress : this.reportProgress;
+    const withCredentials = update.withCredentials ?? this.withCredentials;
+    const reportProgress = update.reportProgress ?? this.reportProgress;
     let headers = update.headers || this.headers;
     let params = update.params || this.params;
     const context = update.context ?? this.context;
@@ -731,7 +728,8 @@ var HttpRequest = class _HttpRequest {
       context,
       reportProgress,
       responseType,
-      withCredentials
+      withCredentials,
+      transferCache
     });
   }
 };
@@ -751,7 +749,7 @@ var HttpResponseBase = class {
    * The single parameter accepted is an initialization hash. Any properties
    * of the response passed there will override the default values.
    */
-  constructor(init, defaultStatus = 200, defaultStatusText = "OK") {
+  constructor(init, defaultStatus = HttpStatusCode.Ok, defaultStatusText = "OK") {
     this.headers = init.headers || new HttpHeaders();
     this.status = init.status !== void 0 ? init.status : defaultStatus;
     this.statusText = init.statusText || defaultStatusText;
@@ -812,6 +810,72 @@ var HttpErrorResponse = class extends HttpResponseBase {
     this.error = init.error || null;
   }
 };
+var HttpStatusCode;
+(function(HttpStatusCode2) {
+  HttpStatusCode2[HttpStatusCode2["Continue"] = 100] = "Continue";
+  HttpStatusCode2[HttpStatusCode2["SwitchingProtocols"] = 101] = "SwitchingProtocols";
+  HttpStatusCode2[HttpStatusCode2["Processing"] = 102] = "Processing";
+  HttpStatusCode2[HttpStatusCode2["EarlyHints"] = 103] = "EarlyHints";
+  HttpStatusCode2[HttpStatusCode2["Ok"] = 200] = "Ok";
+  HttpStatusCode2[HttpStatusCode2["Created"] = 201] = "Created";
+  HttpStatusCode2[HttpStatusCode2["Accepted"] = 202] = "Accepted";
+  HttpStatusCode2[HttpStatusCode2["NonAuthoritativeInformation"] = 203] = "NonAuthoritativeInformation";
+  HttpStatusCode2[HttpStatusCode2["NoContent"] = 204] = "NoContent";
+  HttpStatusCode2[HttpStatusCode2["ResetContent"] = 205] = "ResetContent";
+  HttpStatusCode2[HttpStatusCode2["PartialContent"] = 206] = "PartialContent";
+  HttpStatusCode2[HttpStatusCode2["MultiStatus"] = 207] = "MultiStatus";
+  HttpStatusCode2[HttpStatusCode2["AlreadyReported"] = 208] = "AlreadyReported";
+  HttpStatusCode2[HttpStatusCode2["ImUsed"] = 226] = "ImUsed";
+  HttpStatusCode2[HttpStatusCode2["MultipleChoices"] = 300] = "MultipleChoices";
+  HttpStatusCode2[HttpStatusCode2["MovedPermanently"] = 301] = "MovedPermanently";
+  HttpStatusCode2[HttpStatusCode2["Found"] = 302] = "Found";
+  HttpStatusCode2[HttpStatusCode2["SeeOther"] = 303] = "SeeOther";
+  HttpStatusCode2[HttpStatusCode2["NotModified"] = 304] = "NotModified";
+  HttpStatusCode2[HttpStatusCode2["UseProxy"] = 305] = "UseProxy";
+  HttpStatusCode2[HttpStatusCode2["Unused"] = 306] = "Unused";
+  HttpStatusCode2[HttpStatusCode2["TemporaryRedirect"] = 307] = "TemporaryRedirect";
+  HttpStatusCode2[HttpStatusCode2["PermanentRedirect"] = 308] = "PermanentRedirect";
+  HttpStatusCode2[HttpStatusCode2["BadRequest"] = 400] = "BadRequest";
+  HttpStatusCode2[HttpStatusCode2["Unauthorized"] = 401] = "Unauthorized";
+  HttpStatusCode2[HttpStatusCode2["PaymentRequired"] = 402] = "PaymentRequired";
+  HttpStatusCode2[HttpStatusCode2["Forbidden"] = 403] = "Forbidden";
+  HttpStatusCode2[HttpStatusCode2["NotFound"] = 404] = "NotFound";
+  HttpStatusCode2[HttpStatusCode2["MethodNotAllowed"] = 405] = "MethodNotAllowed";
+  HttpStatusCode2[HttpStatusCode2["NotAcceptable"] = 406] = "NotAcceptable";
+  HttpStatusCode2[HttpStatusCode2["ProxyAuthenticationRequired"] = 407] = "ProxyAuthenticationRequired";
+  HttpStatusCode2[HttpStatusCode2["RequestTimeout"] = 408] = "RequestTimeout";
+  HttpStatusCode2[HttpStatusCode2["Conflict"] = 409] = "Conflict";
+  HttpStatusCode2[HttpStatusCode2["Gone"] = 410] = "Gone";
+  HttpStatusCode2[HttpStatusCode2["LengthRequired"] = 411] = "LengthRequired";
+  HttpStatusCode2[HttpStatusCode2["PreconditionFailed"] = 412] = "PreconditionFailed";
+  HttpStatusCode2[HttpStatusCode2["PayloadTooLarge"] = 413] = "PayloadTooLarge";
+  HttpStatusCode2[HttpStatusCode2["UriTooLong"] = 414] = "UriTooLong";
+  HttpStatusCode2[HttpStatusCode2["UnsupportedMediaType"] = 415] = "UnsupportedMediaType";
+  HttpStatusCode2[HttpStatusCode2["RangeNotSatisfiable"] = 416] = "RangeNotSatisfiable";
+  HttpStatusCode2[HttpStatusCode2["ExpectationFailed"] = 417] = "ExpectationFailed";
+  HttpStatusCode2[HttpStatusCode2["ImATeapot"] = 418] = "ImATeapot";
+  HttpStatusCode2[HttpStatusCode2["MisdirectedRequest"] = 421] = "MisdirectedRequest";
+  HttpStatusCode2[HttpStatusCode2["UnprocessableEntity"] = 422] = "UnprocessableEntity";
+  HttpStatusCode2[HttpStatusCode2["Locked"] = 423] = "Locked";
+  HttpStatusCode2[HttpStatusCode2["FailedDependency"] = 424] = "FailedDependency";
+  HttpStatusCode2[HttpStatusCode2["TooEarly"] = 425] = "TooEarly";
+  HttpStatusCode2[HttpStatusCode2["UpgradeRequired"] = 426] = "UpgradeRequired";
+  HttpStatusCode2[HttpStatusCode2["PreconditionRequired"] = 428] = "PreconditionRequired";
+  HttpStatusCode2[HttpStatusCode2["TooManyRequests"] = 429] = "TooManyRequests";
+  HttpStatusCode2[HttpStatusCode2["RequestHeaderFieldsTooLarge"] = 431] = "RequestHeaderFieldsTooLarge";
+  HttpStatusCode2[HttpStatusCode2["UnavailableForLegalReasons"] = 451] = "UnavailableForLegalReasons";
+  HttpStatusCode2[HttpStatusCode2["InternalServerError"] = 500] = "InternalServerError";
+  HttpStatusCode2[HttpStatusCode2["NotImplemented"] = 501] = "NotImplemented";
+  HttpStatusCode2[HttpStatusCode2["BadGateway"] = 502] = "BadGateway";
+  HttpStatusCode2[HttpStatusCode2["ServiceUnavailable"] = 503] = "ServiceUnavailable";
+  HttpStatusCode2[HttpStatusCode2["GatewayTimeout"] = 504] = "GatewayTimeout";
+  HttpStatusCode2[HttpStatusCode2["HttpVersionNotSupported"] = 505] = "HttpVersionNotSupported";
+  HttpStatusCode2[HttpStatusCode2["VariantAlsoNegotiates"] = 506] = "VariantAlsoNegotiates";
+  HttpStatusCode2[HttpStatusCode2["InsufficientStorage"] = 507] = "InsufficientStorage";
+  HttpStatusCode2[HttpStatusCode2["LoopDetected"] = 508] = "LoopDetected";
+  HttpStatusCode2[HttpStatusCode2["NotExtended"] = 510] = "NotExtended";
+  HttpStatusCode2[HttpStatusCode2["NetworkAuthenticationRequired"] = 511] = "NetworkAuthenticationRequired";
+})(HttpStatusCode || (HttpStatusCode = {}));
 function addBody(options, body) {
   return {
     body,
@@ -1143,7 +1207,7 @@ var _FetchBackend = class _FetchBackend {
         }
       }
       if (status === 0) {
-        status = body ? 200 : 0;
+        status = body ? HttpStatusCode.Ok : 0;
       }
       const ok = status >= 200 && status < 300;
       if (ok) {
@@ -1377,7 +1441,7 @@ var _JsonpClientBackend = class _JsonpClientBackend {
           }
           observer.next(new HttpResponse({
             body,
-            status: 200,
+            status: HttpStatusCode.Ok,
             statusText: "OK",
             url
           }));
@@ -1408,9 +1472,7 @@ var _JsonpClientBackend = class _JsonpClientBackend {
     });
   }
   removeListeners(script) {
-    if (!foreignDocument) {
-      foreignDocument = this.document.implementation.createHTMLDocument();
-    }
+    foreignDocument ??= this.document.implementation.createHTMLDocument();
     foreignDocument.adoptNode(script);
   }
 };
@@ -1542,11 +1604,11 @@ var _HttpXhrBackend = class _HttpXhrBackend {
             url
           } = partialFromXhr();
           let body = null;
-          if (status !== 204) {
+          if (status !== HttpStatusCode.NoContent) {
             body = typeof xhr.response === "undefined" ? xhr.responseText : xhr.response;
           }
           if (status === 0) {
-            status = !!body ? 200 : 0;
+            status = !!body ? HttpStatusCode.Ok : 0;
           }
           let ok = status >= 200 && status < 300;
           if (req.responseType === "json" && typeof body === "string") {
@@ -1673,14 +1735,14 @@ var HttpXhrBackend = _HttpXhrBackend;
     type: XhrFactory
   }], null);
 })();
-var XSRF_ENABLED = new InjectionToken("XSRF_ENABLED");
+var XSRF_ENABLED = new InjectionToken(ngDevMode ? "XSRF_ENABLED" : "");
 var XSRF_DEFAULT_COOKIE_NAME = "XSRF-TOKEN";
-var XSRF_COOKIE_NAME = new InjectionToken("XSRF_COOKIE_NAME", {
+var XSRF_COOKIE_NAME = new InjectionToken(ngDevMode ? "XSRF_COOKIE_NAME" : "", {
   providedIn: "root",
   factory: () => XSRF_DEFAULT_COOKIE_NAME
 });
 var XSRF_DEFAULT_HEADER_NAME = "X-XSRF-TOKEN";
-var XSRF_HEADER_NAME = new InjectionToken("XSRF_HEADER_NAME", {
+var XSRF_HEADER_NAME = new InjectionToken(ngDevMode ? "XSRF_HEADER_NAME" : "", {
   providedIn: "root",
   factory: () => XSRF_DEFAULT_HEADER_NAME
 });
@@ -1830,7 +1892,7 @@ function withInterceptors(interceptorFns) {
     };
   }));
 }
-var LEGACY_INTERCEPTOR_FN = new InjectionToken("LEGACY_INTERCEPTOR_FN");
+var LEGACY_INTERCEPTOR_FN = new InjectionToken(ngDevMode ? "LEGACY_INTERCEPTOR_FN" : "");
 function withInterceptorsFromDi() {
   return makeHttpFeature(HttpFeatureKind.LegacyInterceptors, [{
     provide: LEGACY_INTERCEPTOR_FN,
@@ -2102,6 +2164,9 @@ function getFilteredHeaders(headers, includeHeaders) {
   }
   return headersMap;
 }
+function sortAndConcatParams(params) {
+  return [...params.keys()].sort().map((k) => `${k}=${params.getAll(k)}`).join("&");
+}
 function makeCacheKey(request) {
   const {
     params,
@@ -2109,8 +2174,14 @@ function makeCacheKey(request) {
     responseType,
     url
   } = request;
-  const encodedParams = params.keys().sort().map((k) => `${k}=${params.getAll(k)}`).join("&");
-  const key = method + "." + responseType + "." + url + "?" + encodedParams;
+  const encodedParams = sortAndConcatParams(params);
+  let serializedBody = request.serializeBody();
+  if (serializedBody instanceof URLSearchParams) {
+    serializedBody = sortAndConcatParams(serializedBody);
+  } else if (typeof serializedBody !== "string") {
+    serializedBody = "";
+  }
+  const key = [method, responseType, url, serializedBody, encodedParams].join("|");
   const hash = generateHash(key);
   return makeStateKey(hash);
 }
@@ -2186,6 +2257,7 @@ export {
   HttpHeaderResponse,
   HttpResponse,
   HttpErrorResponse,
+  HttpStatusCode,
   HttpClient,
   FetchBackend,
   HTTP_INTERCEPTORS,
@@ -2214,9 +2286,9 @@ export {
 
 @angular/common/fesm2022/http.mjs:
   (**
-   * @license Angular v17.0.8
+   * @license Angular v17.3.3
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-JERXRU7E.js.map
+//# sourceMappingURL=chunk-FSZNHT2R.js.map

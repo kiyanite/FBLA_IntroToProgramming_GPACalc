@@ -1,6 +1,6 @@
 import {
   getDOM
-} from "./chunk-5MUOGZWO.js";
+} from "./chunk-LN4EGFZP.js";
 import {
   ChangeDetectorRef,
   Directive,
@@ -12,6 +12,7 @@ import {
   InjectionToken,
   Injector,
   Input,
+  InputFlags,
   NgModule,
   Optional,
   Output,
@@ -43,7 +44,7 @@ import {
   ɵɵdirectiveInject,
   ɵɵgetInheritedFactory,
   ɵɵlistener
-} from "./chunk-66AWFF4Y.js";
+} from "./chunk-DNY4HK3M.js";
 
 // node_modules/@angular/forms/fesm2022/forms.mjs
 var _BaseControlValueAccessor = class _BaseControlValueAccessor {
@@ -103,7 +104,7 @@ var BaseControlValueAccessor = _BaseControlValueAccessor;
 })();
 var _BuiltInControlValueAccessor = class _BuiltInControlValueAccessor extends BaseControlValueAccessor {
 };
-_BuiltInControlValueAccessor.ɵfac = (() => {
+_BuiltInControlValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵBuiltInControlValueAccessor_BaseFactory;
   return function BuiltInControlValueAccessor_Factory(t) {
     return (ɵBuiltInControlValueAccessor_BaseFactory || (ɵBuiltInControlValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_BuiltInControlValueAccessor)))(t || _BuiltInControlValueAccessor);
@@ -119,7 +120,7 @@ var BuiltInControlValueAccessor = _BuiltInControlValueAccessor;
     type: Directive
   }], null, null);
 })();
-var NG_VALUE_ACCESSOR = new InjectionToken("NgValueAccessor");
+var NG_VALUE_ACCESSOR = new InjectionToken(ngDevMode ? "NgValueAccessor" : "");
 var CHECKBOX_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => CheckboxControlValueAccessor),
@@ -134,7 +135,7 @@ var _CheckboxControlValueAccessor = class _CheckboxControlValueAccessor extends 
     this.setProperty("checked", value);
   }
 };
-_CheckboxControlValueAccessor.ɵfac = (() => {
+_CheckboxControlValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵCheckboxControlValueAccessor_BaseFactory;
   return function CheckboxControlValueAccessor_Factory(t) {
     return (ɵCheckboxControlValueAccessor_BaseFactory || (ɵCheckboxControlValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_CheckboxControlValueAccessor)))(t || _CheckboxControlValueAccessor);
@@ -177,7 +178,7 @@ function _isAndroid() {
   const userAgent = getDOM() ? getDOM().getUserAgent() : "";
   return /android (\d+)/.test(userAgent.toLowerCase());
 }
-var COMPOSITION_BUFFER_MODE = new InjectionToken("CompositionEventMode");
+var COMPOSITION_BUFFER_MODE = new InjectionToken(ngDevMode ? "CompositionEventMode" : "");
 var _DefaultValueAccessor = class _DefaultValueAccessor extends BaseControlValueAccessor {
   constructor(renderer, elementRef, _compositionMode) {
     super(renderer, elementRef);
@@ -269,8 +270,8 @@ function isEmptyInputValue(value) {
 function hasValidLength(value) {
   return value != null && typeof value.length === "number";
 }
-var NG_VALIDATORS = new InjectionToken("NgValidators");
-var NG_ASYNC_VALIDATORS = new InjectionToken("NgAsyncValidators");
+var NG_VALIDATORS = new InjectionToken(ngDevMode ? "NgValidators" : "");
+var NG_ASYNC_VALIDATORS = new InjectionToken(ngDevMode ? "NgAsyncValidators" : "");
 var EMAIL_REGEXP = /^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 var Validators = class {
   /**
@@ -2927,7 +2928,7 @@ _NgForm.ɵdir = ɵɵdefineDirective({
     }
   },
   inputs: {
-    options: ["ngFormOptions", "options"]
+    options: [InputFlags.None, "ngFormOptions", "options"]
   },
   outputs: {
     ngSubmit: "ngSubmit"
@@ -3133,7 +3134,7 @@ var _AbstractFormGroupDirective = class _AbstractFormGroupDirective extends Cont
   _checkParentType() {
   }
 };
-_AbstractFormGroupDirective.ɵfac = (() => {
+_AbstractFormGroupDirective.ɵfac = /* @__PURE__ */ (() => {
   let ɵAbstractFormGroupDirective_BaseFactory;
   return function AbstractFormGroupDirective_Factory(t) {
     return (ɵAbstractFormGroupDirective_BaseFactory || (ɵAbstractFormGroupDirective_BaseFactory = ɵɵgetInheritedFactory(_AbstractFormGroupDirective)))(t || _AbstractFormGroupDirective);
@@ -3219,7 +3220,7 @@ _NgModelGroup.ɵdir = ɵɵdefineDirective({
   type: _NgModelGroup,
   selectors: [["", "ngModelGroup", ""]],
   inputs: {
-    name: ["ngModelGroup", "name"]
+    name: [InputFlags.None, "ngModelGroup", "name"]
   },
   exportAs: ["ngModelGroup"],
   features: [ɵɵProvidersFeature([modelGroupProvider]), ɵɵInheritDefinitionFeature]
@@ -3412,9 +3413,9 @@ _NgModel.ɵdir = ɵɵdefineDirective({
   selectors: [["", "ngModel", "", 3, "formControlName", "", 3, "formControl", ""]],
   inputs: {
     name: "name",
-    isDisabled: ["disabled", "isDisabled"],
-    model: ["ngModel", "model"],
-    options: ["ngModelOptions", "options"]
+    isDisabled: [InputFlags.None, "disabled", "isDisabled"],
+    model: [InputFlags.None, "ngModel", "model"],
+    options: [InputFlags.None, "ngModelOptions", "options"]
   },
   outputs: {
     update: "ngModelChange"
@@ -3552,7 +3553,7 @@ var _NumberValueAccessor = class _NumberValueAccessor extends BuiltInControlValu
     };
   }
 };
-_NumberValueAccessor.ɵfac = (() => {
+_NumberValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵNumberValueAccessor_BaseFactory;
   return function NumberValueAccessor_Factory(t) {
     return (ɵNumberValueAccessor_BaseFactory || (ɵNumberValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_NumberValueAccessor)))(t || _NumberValueAccessor);
@@ -3597,21 +3598,6 @@ function throwNameError() {
       must match. Ex: <input type="radio" formControlName="food" name="food">
     `);
 }
-var _RadioControlRegistryModule = class _RadioControlRegistryModule {
-};
-_RadioControlRegistryModule.ɵfac = function RadioControlRegistryModule_Factory(t) {
-  return new (t || _RadioControlRegistryModule)();
-};
-_RadioControlRegistryModule.ɵmod = ɵɵdefineNgModule({
-  type: _RadioControlRegistryModule
-});
-_RadioControlRegistryModule.ɵinj = ɵɵdefineInjector({});
-var RadioControlRegistryModule = _RadioControlRegistryModule;
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RadioControlRegistryModule, [{
-    type: NgModule
-  }], null, null);
-})();
 var _RadioControlRegistry = class _RadioControlRegistry {
   constructor() {
     this._accessors = [];
@@ -3658,14 +3644,14 @@ _RadioControlRegistry.ɵfac = function RadioControlRegistry_Factory(t) {
 _RadioControlRegistry.ɵprov = ɵɵdefineInjectable({
   token: _RadioControlRegistry,
   factory: _RadioControlRegistry.ɵfac,
-  providedIn: RadioControlRegistryModule
+  providedIn: "root"
 });
 var RadioControlRegistry = _RadioControlRegistry;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(RadioControlRegistry, [{
     type: Injectable,
     args: [{
-      providedIn: RadioControlRegistryModule
+      providedIn: "root"
     }]
   }], null, null);
 })();
@@ -3810,7 +3796,7 @@ var _RangeValueAccessor = class _RangeValueAccessor extends BuiltInControlValueA
     };
   }
 };
-_RangeValueAccessor.ɵfac = (() => {
+_RangeValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵRangeValueAccessor_BaseFactory;
   return function RangeValueAccessor_Factory(t) {
     return (ɵRangeValueAccessor_BaseFactory || (ɵRangeValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_RangeValueAccessor)))(t || _RangeValueAccessor);
@@ -3847,7 +3833,7 @@ var RangeValueAccessor = _RangeValueAccessor;
     }]
   }], null, null);
 })();
-var NG_MODEL_WITH_FORM_CONTROL_WARNING = new InjectionToken("NgModelWithFormControlWarning");
+var NG_MODEL_WITH_FORM_CONTROL_WARNING = new InjectionToken(ngDevMode ? "NgModelWithFormControlWarning" : "");
 var formControlBinding = {
   provide: NgControl,
   useExisting: forwardRef(() => FormControlDirective)
@@ -3945,9 +3931,9 @@ _FormControlDirective.ɵdir = ɵɵdefineDirective({
   type: _FormControlDirective,
   selectors: [["", "formControl", ""]],
   inputs: {
-    form: ["formControl", "form"],
-    isDisabled: ["disabled", "isDisabled"],
-    model: ["ngModel", "model"]
+    form: [InputFlags.None, "formControl", "form"],
+    isDisabled: [InputFlags.None, "disabled", "isDisabled"],
+    model: [InputFlags.None, "ngModel", "model"]
   },
   outputs: {
     update: "ngModelChange"
@@ -4291,7 +4277,7 @@ _FormGroupDirective.ɵdir = ɵɵdefineDirective({
     }
   },
   inputs: {
-    form: ["formGroup", "form"]
+    form: [InputFlags.None, "formGroup", "form"]
   },
   outputs: {
     ngSubmit: "ngSubmit"
@@ -4376,7 +4362,7 @@ _FormGroupName.ɵdir = ɵɵdefineDirective({
   type: _FormGroupName,
   selectors: [["", "formGroupName", ""]],
   inputs: {
-    name: ["formGroupName", "name"]
+    name: [InputFlags.None, "formGroupName", "name"]
   },
   features: [ɵɵProvidersFeature([formGroupNameProvider]), ɵɵInheritDefinitionFeature]
 });
@@ -4489,7 +4475,7 @@ _FormArrayName.ɵdir = ɵɵdefineDirective({
   type: _FormArrayName,
   selectors: [["", "formArrayName", ""]],
   inputs: {
-    name: ["formArrayName", "name"]
+    name: [InputFlags.None, "formArrayName", "name"]
   },
   features: [ɵɵProvidersFeature([formArrayNameProvider]), ɵɵInheritDefinitionFeature]
 });
@@ -4632,9 +4618,9 @@ _FormControlName.ɵdir = ɵɵdefineDirective({
   type: _FormControlName,
   selectors: [["", "formControlName", ""]],
   inputs: {
-    name: ["formControlName", "name"],
-    isDisabled: ["disabled", "isDisabled"],
-    model: ["ngModel", "model"]
+    name: [InputFlags.None, "formControlName", "name"],
+    isDisabled: [InputFlags.None, "disabled", "isDisabled"],
+    model: [InputFlags.None, "ngModel", "model"]
   },
   outputs: {
     update: "ngModelChange"
@@ -4786,7 +4772,7 @@ var _SelectControlValueAccessor = class _SelectControlValueAccessor extends Buil
     return this._optionMap.has(id) ? this._optionMap.get(id) : valueString;
   }
 };
-_SelectControlValueAccessor.ɵfac = (() => {
+_SelectControlValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵSelectControlValueAccessor_BaseFactory;
   return function SelectControlValueAccessor_Factory(t) {
     return (ɵSelectControlValueAccessor_BaseFactory || (ɵSelectControlValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_SelectControlValueAccessor)))(t || _SelectControlValueAccessor);
@@ -5013,7 +4999,7 @@ var _SelectMultipleControlValueAccessor = class _SelectMultipleControlValueAcces
     return this._optionMap.has(id) ? this._optionMap.get(id)._value : valueString;
   }
 };
-_SelectMultipleControlValueAccessor.ɵfac = (() => {
+_SelectMultipleControlValueAccessor.ɵfac = /* @__PURE__ */ (() => {
   let ɵSelectMultipleControlValueAccessor_BaseFactory;
   return function SelectMultipleControlValueAccessor_Factory(t) {
     return (ɵSelectMultipleControlValueAccessor_BaseFactory || (ɵSelectMultipleControlValueAccessor_BaseFactory = ɵɵgetInheritedFactory(_SelectMultipleControlValueAccessor)))(t || _SelectMultipleControlValueAccessor);
@@ -5211,7 +5197,7 @@ var _MaxValidator = class _MaxValidator extends AbstractValidatorDirective {
     this.createValidator = (max) => maxValidator(max);
   }
 };
-_MaxValidator.ɵfac = (() => {
+_MaxValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵMaxValidator_BaseFactory;
   return function MaxValidator_Factory(t) {
     return (ɵMaxValidator_BaseFactory || (ɵMaxValidator_BaseFactory = ɵɵgetInheritedFactory(_MaxValidator)))(t || _MaxValidator);
@@ -5261,7 +5247,7 @@ var _MinValidator = class _MinValidator extends AbstractValidatorDirective {
     this.createValidator = (min) => minValidator(min);
   }
 };
-_MinValidator.ɵfac = (() => {
+_MinValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵMinValidator_BaseFactory;
   return function MinValidator_Factory(t) {
     return (ɵMinValidator_BaseFactory || (ɵMinValidator_BaseFactory = ɵɵgetInheritedFactory(_MinValidator)))(t || _MinValidator);
@@ -5320,7 +5306,7 @@ var _RequiredValidator = class _RequiredValidator extends AbstractValidatorDirec
     return input;
   }
 };
-_RequiredValidator.ɵfac = (() => {
+_RequiredValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵRequiredValidator_BaseFactory;
   return function RequiredValidator_Factory(t) {
     return (ɵRequiredValidator_BaseFactory || (ɵRequiredValidator_BaseFactory = ɵɵgetInheritedFactory(_RequiredValidator)))(t || _RequiredValidator);
@@ -5363,7 +5349,7 @@ var _CheckboxRequiredValidator = class _CheckboxRequiredValidator extends Requir
     this.createValidator = (input) => requiredTrueValidator;
   }
 };
-_CheckboxRequiredValidator.ɵfac = (() => {
+_CheckboxRequiredValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵCheckboxRequiredValidator_BaseFactory;
   return function CheckboxRequiredValidator_Factory(t) {
     return (ɵCheckboxRequiredValidator_BaseFactory || (ɵCheckboxRequiredValidator_BaseFactory = ɵɵgetInheritedFactory(_CheckboxRequiredValidator)))(t || _CheckboxRequiredValidator);
@@ -5410,7 +5396,7 @@ var _EmailValidator = class _EmailValidator extends AbstractValidatorDirective {
     return input;
   }
 };
-_EmailValidator.ɵfac = (() => {
+_EmailValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵEmailValidator_BaseFactory;
   return function EmailValidator_Factory(t) {
     return (ɵEmailValidator_BaseFactory || (ɵEmailValidator_BaseFactory = ɵɵgetInheritedFactory(_EmailValidator)))(t || _EmailValidator);
@@ -5451,7 +5437,7 @@ var _MinLengthValidator = class _MinLengthValidator extends AbstractValidatorDir
     this.createValidator = (minlength) => minLengthValidator(minlength);
   }
 };
-_MinLengthValidator.ɵfac = (() => {
+_MinLengthValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵMinLengthValidator_BaseFactory;
   return function MinLengthValidator_Factory(t) {
     return (ɵMinLengthValidator_BaseFactory || (ɵMinLengthValidator_BaseFactory = ɵɵgetInheritedFactory(_MinLengthValidator)))(t || _MinLengthValidator);
@@ -5501,7 +5487,7 @@ var _MaxLengthValidator = class _MaxLengthValidator extends AbstractValidatorDir
     this.createValidator = (maxlength) => maxLengthValidator(maxlength);
   }
 };
-_MaxLengthValidator.ɵfac = (() => {
+_MaxLengthValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵMaxLengthValidator_BaseFactory;
   return function MaxLengthValidator_Factory(t) {
     return (ɵMaxLengthValidator_BaseFactory || (ɵMaxLengthValidator_BaseFactory = ɵɵgetInheritedFactory(_MaxLengthValidator)))(t || _MaxLengthValidator);
@@ -5551,7 +5537,7 @@ var _PatternValidator = class _PatternValidator extends AbstractValidatorDirecti
     this.createValidator = (input) => patternValidator(input);
   }
 };
-_PatternValidator.ɵfac = (() => {
+_PatternValidator.ɵfac = /* @__PURE__ */ (() => {
   let ɵPatternValidator_BaseFactory;
   return function PatternValidator_Factory(t) {
     return (ɵPatternValidator_BaseFactory || (ɵPatternValidator_BaseFactory = ɵɵgetInheritedFactory(_PatternValidator)))(t || _PatternValidator);
@@ -5599,19 +5585,15 @@ _ɵInternalFormsSharedModule.ɵfac = function ɵInternalFormsSharedModule_Factor
 _ɵInternalFormsSharedModule.ɵmod = ɵɵdefineNgModule({
   type: _ɵInternalFormsSharedModule,
   declarations: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator, MinValidator, MaxValidator],
-  imports: [RadioControlRegistryModule],
   exports: [ɵNgNoValidate, NgSelectOption, ɵNgSelectMultipleOption, DefaultValueAccessor, NumberValueAccessor, RangeValueAccessor, CheckboxControlValueAccessor, SelectControlValueAccessor, SelectMultipleControlValueAccessor, RadioControlValueAccessor, NgControlStatus, NgControlStatusGroup, RequiredValidator, MinLengthValidator, MaxLengthValidator, PatternValidator, CheckboxRequiredValidator, EmailValidator, MinValidator, MaxValidator]
 });
-_ɵInternalFormsSharedModule.ɵinj = ɵɵdefineInjector({
-  imports: [RadioControlRegistryModule]
-});
+_ɵInternalFormsSharedModule.ɵinj = ɵɵdefineInjector({});
 var ɵInternalFormsSharedModule = _ɵInternalFormsSharedModule;
 (() => {
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ɵInternalFormsSharedModule, [{
     type: NgModule,
     args: [{
       declarations: SHARED_FORM_DIRECTIVES,
-      imports: [RadioControlRegistryModule],
       exports: SHARED_FORM_DIRECTIVES
     }]
   }], null, null);
@@ -6232,7 +6214,7 @@ var _UntypedFormBuilder = class _UntypedFormBuilder extends FormBuilder {
     return super.array(controlsConfig, validatorOrOpts, asyncValidator);
   }
 };
-_UntypedFormBuilder.ɵfac = (() => {
+_UntypedFormBuilder.ɵfac = /* @__PURE__ */ (() => {
   let ɵUntypedFormBuilder_BaseFactory;
   return function UntypedFormBuilder_Factory(t) {
     return (ɵUntypedFormBuilder_BaseFactory || (ɵUntypedFormBuilder_BaseFactory = ɵɵgetInheritedFactory(_UntypedFormBuilder)))(t || _UntypedFormBuilder);
@@ -6252,7 +6234,7 @@ var UntypedFormBuilder = _UntypedFormBuilder;
     }]
   }], null, null);
 })();
-var VERSION = new Version("17.0.8");
+var VERSION = new Version("17.3.3");
 var _FormsModule = class _FormsModule {
   /**
    * @description
@@ -6400,7 +6382,7 @@ export {
 
 @angular/forms/fesm2022/forms.mjs:
   (**
-   * @license Angular v17.0.8
+   * @license Angular v17.3.3
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
