@@ -1,13 +1,17 @@
-<!-- <p>gpa-auto works!</p>
-<ul>
-    <li *ngFor="let course of courses">
+<p>gpa-auto works!</p>
+The length is: {{ this.courses.length }}
+<br>
+accessToken is: {{this.accessToken}}
+<br>
+runthis is: {{this.runThis}}
+<!-- <ul>
+    <li *ngFor="let course of this.courses">
       {{ course.name }}
     </li>
-  </ul>
+  </ul> -->
 
-   -->
 
-   <div *ngFor="let course of courses">
+   <div *ngFor="let course of this.courses">
     <h2>{{ course.name }}</h2>
     <p *ngFor="let grade of course.grades">
       {{ grade }}
