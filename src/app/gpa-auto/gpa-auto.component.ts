@@ -71,11 +71,20 @@
 // }
 
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 declare var gapi: any; // Add this line to declare the gapi variable
 
 @Component({
   selector: 'app-gpa-auto',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    OAuthModule
+  ],
   templateUrl: './gpa-auto.component.html',
   styleUrls: ['./gpa-auto.component.css']
 })
@@ -83,20 +92,30 @@ export class GpaAutoComponent implements OnInit {
   accessToken: string = '';
   courses: any[] = []; 
 
+  //debug
+  runThis: boolean = false;
+
   ngOnInit() {
     console.log('ngOnInit is being called');
     const fragment = window.location.hash.substring(1);
     const params = new URLSearchParams(fragment);
     this.accessToken = params.get('access_token') || 'no access token found';
-
+    
     // Load the Classroom API client library and set the access token
     gapi.load('client:auth2', () => {
+      this.runThis =  true;
       console.log('gapi.load callback is being called');
       gapi.client.setToken({access_token: this.accessToken});
+
+      //debug
+      //this.tmpAccesstoken = gapi.client.getToken();
+
       console.log('setToken has been called');
+      
       gapi.client.load('https://classroom.googleapis.com/$discovery/rest?version=v1')
         .then(() => {
           console.log('client.load promise has resolved');
+          
           // List the courses
           gapi.client.classroom.courses.list()
             .then((response: any) => {
