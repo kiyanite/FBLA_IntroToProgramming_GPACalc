@@ -1,0 +1,15 @@
+#bigDiv
+ { width: 800px; top: 10%; left: 30%; margin-top: 100px; margin-left: 240px; margin: auto; background-color: #1f2225; padding:20px; align: center; border-radius: 8px; }
+ 
+ body {
+    background-color: #1f2225;
+  }
+
+  #resultTitle{
+    background-color: #1c3f3e;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(118, 224, 104, 0.1);
+    text-align: left;
+  }
