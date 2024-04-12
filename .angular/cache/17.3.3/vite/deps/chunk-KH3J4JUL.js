@@ -1,6 +1,6 @@
 import {
   withHttpTransferCache
-} from "./chunk-JERXRU7E.js";
+} from "./chunk-FSZNHT2R.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -11,7 +11,7 @@ import {
   isPlatformServer,
   parseCookieValue,
   setRootDomAdapter
-} from "./chunk-5MUOGZWO.js";
+} from "./chunk-LN4EGFZP.js";
 import {
   APP_ID,
   ApplicationModule,
@@ -24,7 +24,6 @@ import {
   Inject,
   Injectable,
   InjectionToken,
-  Injector,
   NgModule,
   NgZone,
   Optional,
@@ -70,7 +69,7 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵinject
-} from "./chunk-66AWFF4Y.js";
+} from "./chunk-DNY4HK3M.js";
 
 // node_modules/@angular/platform-browser/fesm2022/platform-browser.mjs
 var GenericBrowserDomAdapter = class extends DomAdapter {
@@ -162,12 +161,10 @@ var BrowserGetTestability = class {
     const whenAllStable = (callback) => {
       const testabilities = _global["getAllAngularTestabilities"]();
       let count = testabilities.length;
-      let didWork = false;
-      const decrement = function(didWork_) {
-        didWork = didWork || didWork_;
+      const decrement = function() {
         count--;
         if (count == 0) {
-          callback(didWork);
+          callback();
         }
       };
       testabilities.forEach((testability) => {
@@ -213,7 +210,7 @@ var BrowserXhr = _BrowserXhr;
     type: Injectable
   }], null, null);
 })();
-var EVENT_MANAGER_PLUGINS = new InjectionToken("EventManagerPlugins");
+var EVENT_MANAGER_PLUGINS = new InjectionToken(ngDevMode ? "EventManagerPlugins" : "");
 var _EventManager = class _EventManager {
   /**
    * Initializes an instance of the event-manager service.
@@ -469,7 +466,7 @@ var COMPONENT_VARIABLE = "%COMP%";
 var HOST_ATTR = `_nghost-${COMPONENT_VARIABLE}`;
 var CONTENT_ATTR = `_ngcontent-${COMPONENT_VARIABLE}`;
 var REMOVE_STYLES_ON_COMPONENT_DESTROY_DEFAULT = true;
-var REMOVE_STYLES_ON_COMPONENT_DESTROY = new InjectionToken("RemoveStylesOnCompDestroy", {
+var REMOVE_STYLES_ON_COMPONENT_DESTROY = new InjectionToken(ngDevMode ? "RemoveStylesOnCompDestroy" : "", {
   providedIn: "root",
   factory: () => REMOVE_STYLES_ON_COMPONENT_DESTROY_DEFAULT
 });
@@ -1058,6 +1055,7 @@ var TESTABILITY_PROVIDERS = [{
   deps: [NgZone, TestabilityRegistry, TESTABILITY_GETTER]
 }, {
   provide: Testability,
+  // Also provide as `Testability` for backwards-compatibility.
   useClass: Testability,
   deps: [NgZone, TestabilityRegistry, TESTABILITY_GETTER]
 }];
@@ -1146,9 +1144,6 @@ var BrowserModule = _BrowserModule;
     }]
   }], null);
 })();
-function createMeta() {
-  return new Meta(ɵɵinject(DOCUMENT));
-}
 var _Meta = class _Meta {
   constructor(_doc) {
     this._doc = _doc;
@@ -1279,15 +1274,7 @@ _Meta.ɵfac = function Meta_Factory(t) {
 };
 _Meta.ɵprov = ɵɵdefineInjectable({
   token: _Meta,
-  factory: function Meta_Factory(t) {
-    let r = null;
-    if (t) {
-      r = new t();
-    } else {
-      r = createMeta();
-    }
-    return r;
-  },
+  factory: _Meta.ɵfac,
   providedIn: "root"
 });
 var Meta = _Meta;
@@ -1295,9 +1282,7 @@ var Meta = _Meta;
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Meta, [{
     type: Injectable,
     args: [{
-      providedIn: "root",
-      useFactory: createMeta,
-      deps: []
+      providedIn: "root"
     }]
   }], () => [{
     type: void 0,
@@ -1310,9 +1295,6 @@ var Meta = _Meta;
 var META_KEYS_MAP = {
   httpEquiv: "http-equiv"
 };
-function createTitle() {
-  return new Title(ɵɵinject(DOCUMENT));
-}
 var _Title = class _Title {
   constructor(_doc) {
     this._doc = _doc;
@@ -1336,15 +1318,7 @@ _Title.ɵfac = function Title_Factory(t) {
 };
 _Title.ɵprov = ɵɵdefineInjectable({
   token: _Title,
-  factory: function Title_Factory(t) {
-    let r = null;
-    if (t) {
-      r = new t();
-    } else {
-      r = createTitle();
-    }
-    return r;
-  },
+  factory: _Title.ɵfac,
   providedIn: "root"
 });
 var Title = _Title;
@@ -1352,9 +1326,7 @@ var Title = _Title;
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Title, [{
     type: Injectable,
     args: [{
-      providedIn: "root",
-      useFactory: createTitle,
-      deps: []
+      providedIn: "root"
     }]
   }], () => [{
     type: void 0,
@@ -1370,7 +1342,6 @@ function exportNgVar(name, value) {
     ng[name] = value;
   }
 }
-var win = typeof window !== "undefined" && window || {};
 var ChangeDetectionPerfRecord = class {
   constructor(msPerTick, numTicks) {
     this.msPerTick = msPerTick;
@@ -1401,29 +1372,25 @@ var AngularProfiler = class {
   timeChangeDetection(config) {
     const record = config && config["record"];
     const profileName = "Change Detection";
-    const isProfilerAvailable = win.console.profile != null;
-    if (record && isProfilerAvailable) {
-      win.console.profile(profileName);
+    if (record && "profile" in console && typeof console.profile === "function") {
+      console.profile(profileName);
     }
-    const start = performanceNow();
+    const start = performance.now();
     let numTicks = 0;
-    while (numTicks < 5 || performanceNow() - start < 500) {
+    while (numTicks < 5 || performance.now() - start < 500) {
       this.appRef.tick();
       numTicks++;
     }
-    const end = performanceNow();
-    if (record && isProfilerAvailable) {
-      win.console.profileEnd(profileName);
+    const end = performance.now();
+    if (record && "profileEnd" in console && typeof console.profileEnd === "function") {
+      console.profileEnd(profileName);
     }
     const msPerTick = (end - start) / numTicks;
-    win.console.log(`ran ${numTicks} change detection cycles`);
-    win.console.log(`${msPerTick.toFixed(2)} ms per check`);
+    console.log(`ran ${numTicks} change detection cycles`);
+    console.log(`${msPerTick.toFixed(2)} ms per check`);
     return new ChangeDetectionPerfRecord(msPerTick, numTicks);
   }
 };
-function performanceNow() {
-  return win.performance && win.performance.now ? win.performance.now() : (/* @__PURE__ */ new Date()).getTime();
-}
 var PROFILER_GLOBAL_NAME = "profiler";
 function enableDebugTools(ref) {
   exportNgVar(PROFILER_GLOBAL_NAME, new AngularProfiler(ref));
@@ -1554,10 +1521,10 @@ var HammerGestureConfig = _HammerGestureConfig;
   }], null, null);
 })();
 var _HammerGesturesPlugin = class _HammerGesturesPlugin extends EventManagerPlugin {
-  constructor(doc, _config, console, loader) {
+  constructor(doc, _config, console2, loader) {
     super(doc);
     this._config = _config;
-    this.console = console;
+    this.console = console2;
     this.loader = loader;
     this._loaderPromise = null;
   }
@@ -1726,9 +1693,6 @@ var DomSanitizer = _DomSanitizer;
     }]
   }], null, null);
 })();
-function domSanitizerImplFactory(injector) {
-  return new DomSanitizerImpl(injector.get(DOCUMENT));
-}
 var _DomSanitizerImpl = class _DomSanitizerImpl extends DomSanitizer {
   constructor(_doc) {
     super();
@@ -1810,15 +1774,7 @@ _DomSanitizerImpl.ɵfac = function DomSanitizerImpl_Factory(t) {
 };
 _DomSanitizerImpl.ɵprov = ɵɵdefineInjectable({
   token: _DomSanitizerImpl,
-  factory: function DomSanitizerImpl_Factory(t) {
-    let r = null;
-    if (t) {
-      r = new t();
-    } else {
-      r = domSanitizerImplFactory(ɵɵinject(Injector));
-    }
-    return r;
-  },
+  factory: _DomSanitizerImpl.ɵfac,
   providedIn: "root"
 });
 var DomSanitizerImpl = _DomSanitizerImpl;
@@ -1826,9 +1782,7 @@ var DomSanitizerImpl = _DomSanitizerImpl;
   (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(DomSanitizerImpl, [{
     type: Injectable,
     args: [{
-      providedIn: "root",
-      useFactory: domSanitizerImplFactory,
-      deps: [Injector]
+      providedIn: "root"
     }]
   }], () => [{
     type: void 0,
@@ -1838,6 +1792,11 @@ var DomSanitizerImpl = _DomSanitizerImpl;
     }]
   }], null);
 })();
+var HydrationFeatureKind;
+(function(HydrationFeatureKind2) {
+  HydrationFeatureKind2[HydrationFeatureKind2["NoHttpTransferCache"] = 0] = "NoHttpTransferCache";
+  HydrationFeatureKind2[HydrationFeatureKind2["HttpTransferCacheOptions"] = 1] = "HttpTransferCacheOptions";
+})(HydrationFeatureKind || (HydrationFeatureKind = {}));
 function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
   return {
     ɵkind,
@@ -1845,13 +1804,10 @@ function hydrationFeature(ɵkind, ɵproviders = [], ɵoptions = {}) {
   };
 }
 function withNoHttpTransferCache() {
-  return hydrationFeature(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  );
+  return hydrationFeature(HydrationFeatureKind.NoHttpTransferCache);
 }
 function withHttpTransferCacheOptions(options) {
-  return hydrationFeature(1, withHttpTransferCache(options));
+  return hydrationFeature(HydrationFeatureKind.HttpTransferCacheOptions, withHttpTransferCache(options));
 }
 function provideZoneJsCompatibilityDetector() {
   return [{
@@ -1859,9 +1815,9 @@ function provideZoneJsCompatibilityDetector() {
     useValue: () => {
       const ngZone = inject(NgZone);
       if (ngZone.constructor !== NgZone) {
-        const console = inject(Console);
+        const console2 = inject(Console);
         const message = formatRuntimeError(-5e3, "Angular detected that hydration was enabled for an application that uses a custom or a noop Zone.js implementation. This is not yet a fully supported configuration.");
-        console.warn(message);
+        console2.warn(message);
       }
     },
     multi: true
@@ -1870,10 +1826,7 @@ function provideZoneJsCompatibilityDetector() {
 function provideClientHydration(...features) {
   const providers = [];
   const featuresKind = /* @__PURE__ */ new Set();
-  const hasHttpTransferCacheOptions = featuresKind.has(
-    1
-    /* HydrationFeatureKind.HttpTransferCacheOptions */
-  );
+  const hasHttpTransferCacheOptions = featuresKind.has(HydrationFeatureKind.HttpTransferCacheOptions);
   for (const {
     ɵproviders,
     ɵkind
@@ -1883,18 +1836,12 @@ function provideClientHydration(...features) {
       providers.push(ɵproviders);
     }
   }
-  if (typeof ngDevMode !== "undefined" && ngDevMode && featuresKind.has(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  ) && hasHttpTransferCacheOptions) {
+  if (typeof ngDevMode !== "undefined" && ngDevMode && featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) && hasHttpTransferCacheOptions) {
     throw new Error("Configuration error: found both withHttpTransferCacheOptions() and withNoHttpTransferCache() in the same call to provideClientHydration(), which is a contradiction.");
   }
-  return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideZoneJsCompatibilityDetector() : [], withDomHydration(), featuresKind.has(
-    0
-    /* HydrationFeatureKind.NoHttpTransferCache */
-  ) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
+  return makeEnvironmentProviders([typeof ngDevMode !== "undefined" && ngDevMode ? provideZoneJsCompatibilityDetector() : [], withDomHydration(), featuresKind.has(HydrationFeatureKind.NoHttpTransferCache) || hasHttpTransferCacheOptions ? [] : withHttpTransferCache({}), providers]);
 }
-var VERSION = new Version("17.0.8");
+var VERSION = new Version("17.3.3");
 var makeStateKey2 = makeStateKey;
 var TransferState2 = TransferState;
 
@@ -1928,6 +1875,7 @@ export {
   HammerModule,
   DomSanitizer,
   DomSanitizerImpl,
+  HydrationFeatureKind,
   withNoHttpTransferCache,
   withHttpTransferCacheOptions,
   provideClientHydration,
@@ -1939,9 +1887,9 @@ export {
 
 @angular/platform-browser/fesm2022/platform-browser.mjs:
   (**
-   * @license Angular v17.0.8
+   * @license Angular v17.3.3
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-D2AEFTDL.js.map
+//# sourceMappingURL=chunk-KH3J4JUL.js.map
