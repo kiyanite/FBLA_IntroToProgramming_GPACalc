@@ -6,6 +6,25 @@
   </ul>
 
    -->
+   <body>
+    <div id="bigDiv">
+   <div id="resultTitle">
+    <h2>Your Class Grades:</h2>
+    <h3> FBLA Test Class 1: 95% </h3>
+    <h3> FBLA Test Class 2: 82% </h3>
+    <h3> FBLA Test Class 3: 90% </h3>
+    <h3> FBLA Test Class 4: 87% </h3>
+    <h3> FBLA Test Class 5: 80% </h3>
+  </div>
+  <br>
+
+   <div id="resultTitle">
+    <h2>Your Total GPA is:</h2>
+    <h3> 3.2 </h3>
+  </div>
+  <br>
+
+ 
 
 <div *ngFor="let course of courses">
   <h2>{{ course.name }}</h2>
@@ -13,3 +32,5 @@
     {{ grade }}
   </p>
 </div>
+</div>
+</body>
