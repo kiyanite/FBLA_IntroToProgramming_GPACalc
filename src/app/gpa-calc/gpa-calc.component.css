@@ -19,7 +19,7 @@ app-gpa-calc {
   margin-top: 10px;
  }
 
- p, ::placeholder, h2, li{
+ p, ::placeholder, h2, li, h1{
   color: #fff;
  }
 
@@ -235,8 +235,17 @@ tfoot td {
   font-weight: bold;
 }
 
+input.ng-untouched.ng-pristine.ng-valid{
+  width: 125px;
+}
 
+div.modal{
+  background-color: #1c3f3e;
+}
 
+button{
+  color:#000000;
+}
 
 /* #bigDiv
  { width: 800px; top: 10%; left: 30%; margin-top: 100px; margin-left: 240px; margin: auto} 
