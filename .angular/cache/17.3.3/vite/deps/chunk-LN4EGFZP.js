@@ -13,6 +13,7 @@ import {
   InjectionToken,
   Injector,
   Input,
+  InputFlags,
   IterableDiffers,
   KeyValueDiffers,
   LOCALE_ID,
@@ -58,7 +59,7 @@ import {
   ɵɵinject,
   ɵɵinjectAttribute,
   ɵɵstyleProp
-} from "./chunk-66AWFF4Y.js";
+} from "./chunk-DNY4HK3M.js";
 
 // node_modules/@angular/common/fesm2022/common.mjs
 var _DOM = null;
@@ -66,16 +67,34 @@ function getDOM() {
   return _DOM;
 }
 function setRootDomAdapter(adapter) {
-  if (!_DOM) {
-    _DOM = adapter;
-  }
+  _DOM ??= adapter;
 }
 var DomAdapter = class {
 };
-var DOCUMENT = new InjectionToken("DocumentToken");
+var _PlatformNavigation = class _PlatformNavigation {
+};
+_PlatformNavigation.ɵfac = function PlatformNavigation_Factory(t) {
+  return new (t || _PlatformNavigation)();
+};
+_PlatformNavigation.ɵprov = ɵɵdefineInjectable({
+  token: _PlatformNavigation,
+  factory: () => (() => window.navigation)(),
+  providedIn: "platform"
+});
+var PlatformNavigation = _PlatformNavigation;
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlatformNavigation, [{
+    type: Injectable,
+    args: [{
+      providedIn: "platform",
+      useFactory: () => window.navigation
+    }]
+  }], null, null);
+})();
+var DOCUMENT = new InjectionToken(ngDevMode ? "DocumentToken" : "");
 var _PlatformLocation = class _PlatformLocation {
   historyGo(relativePosition) {
-    throw new Error("Not implemented");
+    throw new Error(ngDevMode ? "Not implemented" : "");
   }
 };
 _PlatformLocation.ɵfac = function PlatformLocation_Factory(t) {
@@ -96,7 +115,7 @@ var PlatformLocation = _PlatformLocation;
     }]
   }], null, null);
 })();
-var LOCATION_INITIALIZED = new InjectionToken("Location Initialized");
+var LOCATION_INITIALIZED = new InjectionToken(ngDevMode ? "Location Initialized" : "");
 var _BrowserPlatformLocation = class _BrowserPlatformLocation extends PlatformLocation {
   constructor() {
     super();
@@ -211,7 +230,7 @@ function normalizeQueryParams(params) {
 }
 var _LocationStrategy = class _LocationStrategy {
   historyGo(relativePosition) {
-    throw new Error("Not implemented");
+    throw new Error(ngDevMode ? "Not implemented" : "");
   }
 };
 _LocationStrategy.ɵfac = function LocationStrategy_Factory(t) {
@@ -232,7 +251,7 @@ var LocationStrategy = _LocationStrategy;
     }]
   }], null, null);
 })();
-var APP_BASE_HREF = new InjectionToken("appBaseHref");
+var APP_BASE_HREF = new InjectionToken(ngDevMode ? "appBaseHref" : "");
 var _PathLocationStrategy = class _PathLocationStrategy extends LocationStrategy {
   constructor(_platformLocation, href) {
     super();
@@ -331,9 +350,7 @@ var _HashLocationStrategy = class _HashLocationStrategy extends LocationStrategy
     return this._baseHref;
   }
   path(includeHash = false) {
-    let path = this._platformLocation.hash;
-    if (path == null)
-      path = "#";
+    const path = this._platformLocation.hash ?? "#";
     return path.length > 0 ? path.substring(1) : path;
   }
   prepareExternalUrl(internal) {
@@ -531,11 +548,9 @@ var _Location = class _Location {
    */
   onUrlChange(fn) {
     this._urlChangeListeners.push(fn);
-    if (!this._urlChangeSubscription) {
-      this._urlChangeSubscription = this.subscribe((v) => {
-        this._notifyUrlChangeListeners(v.url, v.state);
-      });
-    }
+    this._urlChangeSubscription ??= this.subscribe((v) => {
+      this._notifyUrlChangeListeners(v.url, v.state);
+    });
     return () => {
       const fnIndex = this._urlChangeListeners.indexOf(fn);
       this._urlChangeListeners.splice(fnIndex, 1);
@@ -795,23 +810,80 @@ var FormatWidth;
   FormatWidth2[FormatWidth2["Long"] = 2] = "Long";
   FormatWidth2[FormatWidth2["Full"] = 3] = "Full";
 })(FormatWidth || (FormatWidth = {}));
-var NumberSymbol;
-(function(NumberSymbol2) {
-  NumberSymbol2[NumberSymbol2["Decimal"] = 0] = "Decimal";
-  NumberSymbol2[NumberSymbol2["Group"] = 1] = "Group";
-  NumberSymbol2[NumberSymbol2["List"] = 2] = "List";
-  NumberSymbol2[NumberSymbol2["PercentSign"] = 3] = "PercentSign";
-  NumberSymbol2[NumberSymbol2["PlusSign"] = 4] = "PlusSign";
-  NumberSymbol2[NumberSymbol2["MinusSign"] = 5] = "MinusSign";
-  NumberSymbol2[NumberSymbol2["Exponential"] = 6] = "Exponential";
-  NumberSymbol2[NumberSymbol2["SuperscriptingExponent"] = 7] = "SuperscriptingExponent";
-  NumberSymbol2[NumberSymbol2["PerMille"] = 8] = "PerMille";
-  NumberSymbol2[NumberSymbol2["Infinity"] = 9] = "Infinity";
-  NumberSymbol2[NumberSymbol2["NaN"] = 10] = "NaN";
-  NumberSymbol2[NumberSymbol2["TimeSeparator"] = 11] = "TimeSeparator";
-  NumberSymbol2[NumberSymbol2["CurrencyDecimal"] = 12] = "CurrencyDecimal";
-  NumberSymbol2[NumberSymbol2["CurrencyGroup"] = 13] = "CurrencyGroup";
-})(NumberSymbol || (NumberSymbol = {}));
+var NumberSymbol = {
+  /**
+   * Decimal separator.
+   * For `en-US`, the dot character.
+   * Example: 2,345`.`67
+   */
+  Decimal: 0,
+  /**
+   * Grouping separator, typically for thousands.
+   * For `en-US`, the comma character.
+   * Example: 2`,`345.67
+   */
+  Group: 1,
+  /**
+   * List-item separator.
+   * Example: "one, two, and three"
+   */
+  List: 2,
+  /**
+   * Sign for percentage (out of 100).
+   * Example: 23.4%
+   */
+  PercentSign: 3,
+  /**
+   * Sign for positive numbers.
+   * Example: +23
+   */
+  PlusSign: 4,
+  /**
+   * Sign for negative numbers.
+   * Example: -23
+   */
+  MinusSign: 5,
+  /**
+   * Computer notation for exponential value (n times a power of 10).
+   * Example: 1.2E3
+   */
+  Exponential: 6,
+  /**
+   * Human-readable format of exponential.
+   * Example: 1.2x103
+   */
+  SuperscriptingExponent: 7,
+  /**
+   * Sign for permille (out of 1000).
+   * Example: 23.4‰
+   */
+  PerMille: 8,
+  /**
+   * Infinity, can be used with plus and minus.
+   * Example: ∞, +∞, -∞
+   */
+  Infinity: 9,
+  /**
+   * Not a number.
+   * Example: NaN
+   */
+  NaN: 10,
+  /**
+   * Symbol used between time units.
+   * Example: 10:52
+   */
+  TimeSeparator: 11,
+  /**
+   * Decimal separator for currency values (fallback to `Decimal`).
+   * Example: $2,345.67
+   */
+  CurrencyDecimal: 12,
+  /**
+   * Group separator for currency values (fallback to `Group`).
+   * Example: $2,345.67
+   */
+  CurrencyGroup: 13
+};
 var WeekDay;
 (function(WeekDay2) {
   WeekDay2[WeekDay2["Sunday"] = 0] = "Sunday";
@@ -1046,7 +1118,7 @@ function createDate(year, month, date) {
 }
 function getNamedFormat(locale, format) {
   const localeId = getLocaleId(locale);
-  NAMED_FORMATS[localeId] = NAMED_FORMATS[localeId] || {};
+  NAMED_FORMATS[localeId] ??= {};
   if (NAMED_FORMATS[localeId][format]) {
     return NAMED_FORMATS[localeId][format];
   }
@@ -1249,8 +1321,10 @@ function getFirstThursdayOfYear(year) {
   const firstDayOfYear = createDate(year, JANUARY, 1).getDay();
   return createDate(year, 0, 1 + (firstDayOfYear <= THURSDAY ? THURSDAY : THURSDAY + 7) - firstDayOfYear);
 }
-function getThursdayThisWeek(datetime) {
-  return createDate(datetime.getFullYear(), datetime.getMonth(), datetime.getDate() + (THURSDAY - datetime.getDay()));
+function getThursdayThisIsoWeek(datetime) {
+  const currentDay = datetime.getDay();
+  const deltaToThursday = currentDay === 0 ? -3 : THURSDAY - currentDay;
+  return createDate(datetime.getFullYear(), datetime.getMonth(), datetime.getDate() + deltaToThursday);
 }
 function weekGetter(size, monthBased = false) {
   return function(date, locale) {
@@ -1260,7 +1334,7 @@ function weekGetter(size, monthBased = false) {
       const today = date.getDate();
       result = 1 + Math.floor((today + nbDaysBefore1stDayOfMonth) / 7);
     } else {
-      const thisThurs = getThursdayThisWeek(date);
+      const thisThurs = getThursdayThisIsoWeek(date);
       const firstThurs = getFirstThursdayOfYear(thisThurs.getFullYear());
       const diff = thisThurs.getTime() - firstThurs.getTime();
       result = 1 + Math.round(diff / 6048e5);
@@ -1270,7 +1344,7 @@ function weekGetter(size, monthBased = false) {
 }
 function weekNumberingYearGetter(size, trim = false) {
   return function(date, locale) {
-    const thisThurs = getThursdayThisWeek(date);
+    const thisThurs = getThursdayThisIsoWeek(date);
     const weekNumberingYear = thisThurs.getFullYear();
     return padNumber(weekNumberingYear, size, getLocaleNumberSymbol(locale, NumberSymbol.MinusSign), trim);
   };
@@ -1912,9 +1986,7 @@ function parseCookieValue(cookieStr, name) {
 var WS_REGEXP = /\s+/;
 var EMPTY_ARRAY = [];
 var _NgClass = class _NgClass {
-  constructor(_iterableDiffers, _keyValueDiffers, _ngEl, _renderer) {
-    this._iterableDiffers = _iterableDiffers;
-    this._keyValueDiffers = _keyValueDiffers;
+  constructor(_ngEl, _renderer) {
     this._ngEl = _ngEl;
     this._renderer = _renderer;
     this.initialClasses = EMPTY_ARRAY;
@@ -2015,13 +2087,13 @@ var _NgClass = class _NgClass {
   }
 };
 _NgClass.ɵfac = function NgClass_Factory(t) {
-  return new (t || _NgClass)(ɵɵdirectiveInject(IterableDiffers), ɵɵdirectiveInject(KeyValueDiffers), ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(Renderer2));
+  return new (t || _NgClass)(ɵɵdirectiveInject(ElementRef), ɵɵdirectiveInject(Renderer2));
 };
 _NgClass.ɵdir = ɵɵdefineDirective({
   type: _NgClass,
   selectors: [["", "ngClass", ""]],
   inputs: {
-    klass: ["class", "klass"],
+    klass: [InputFlags.None, "class", "klass"],
     ngClass: "ngClass"
   },
   standalone: true
@@ -2035,10 +2107,6 @@ var NgClass = _NgClass;
       standalone: true
     }]
   }], () => [{
-    type: IterableDiffers
-  }, {
-    type: KeyValueDiffers
-  }, {
     type: ElementRef
   }, {
     type: Renderer2
@@ -2517,7 +2585,7 @@ var _NgSwitch = class _NgSwitch {
     if ((typeof ngDevMode === "undefined" || ngDevMode) && matched !== (value == this._ngSwitch)) {
       console.warn(formatRuntimeError(2001, `As of Angular v17 the NgSwitch directive uses strict equality comparison === instead of == to match different cases. Previously the case value "${stringifyValue(value)}" matched switch expression value "${stringifyValue(this._ngSwitch)}", but this is no longer the case with the stricter equality check. Your comparison results return different results using === vs. == and you should adjust your ngSwitch expression and / or values to conform with the strict equality requirements.`));
     }
-    this._lastCasesMatched = this._lastCasesMatched || matched;
+    this._lastCasesMatched ||= matched;
     this._lastCaseCheckIndex++;
     if (this._lastCaseCheckIndex === this._caseCount) {
       this._updateDefaultCases(!this._lastCasesMatched);
@@ -2941,6 +3009,7 @@ var _subscribableStrategy = new SubscribableStrategy();
 var _AsyncPipe = class _AsyncPipe {
   constructor(ref) {
     this._latestValue = null;
+    this.markForCheckOnValueUpdate = true;
     this._subscription = null;
     this._obj = null;
     this._strategy = null;
@@ -2955,7 +3024,12 @@ var _AsyncPipe = class _AsyncPipe {
   transform(obj) {
     if (!this._obj) {
       if (obj) {
-        this._subscribe(obj);
+        try {
+          this.markForCheckOnValueUpdate = false;
+          this._subscribe(obj);
+        } finally {
+          this.markForCheckOnValueUpdate = true;
+        }
       }
       return this._latestValue;
     }
@@ -2988,7 +3062,9 @@ var _AsyncPipe = class _AsyncPipe {
   _updateLatestValue(async, value) {
     if (async === this._obj) {
       this._latestValue = value;
-      this._ref.markForCheck();
+      if (this.markForCheckOnValueUpdate) {
+        this._ref?.markForCheck();
+      }
     }
   }
 };
@@ -3103,8 +3179,8 @@ var UpperCasePipe = _UpperCasePipe;
   }], null, null);
 })();
 var DEFAULT_DATE_FORMAT = "mediumDate";
-var DATE_PIPE_DEFAULT_TIMEZONE = new InjectionToken("DATE_PIPE_DEFAULT_TIMEZONE");
-var DATE_PIPE_DEFAULT_OPTIONS = new InjectionToken("DATE_PIPE_DEFAULT_OPTIONS");
+var DATE_PIPE_DEFAULT_TIMEZONE = new InjectionToken(ngDevMode ? "DATE_PIPE_DEFAULT_TIMEZONE" : "");
+var DATE_PIPE_DEFAULT_OPTIONS = new InjectionToken(ngDevMode ? "DATE_PIPE_DEFAULT_OPTIONS" : "");
 var _DatePipe = class _DatePipe {
   constructor(locale, defaultTimezone, defaultOptions) {
     this.locale = locale;
@@ -3138,7 +3214,6 @@ var DatePipe = _DatePipe;
     type: Pipe,
     args: [{
       name: "date",
-      pure: true,
       standalone: true
     }]
   }], () => [{
@@ -3202,7 +3277,6 @@ var I18nPluralPipe = _I18nPluralPipe;
     type: Pipe,
     args: [{
       name: "i18nPlural",
-      pure: true,
       standalone: true
     }]
   }], () => [{
@@ -3245,7 +3319,6 @@ var I18nSelectPipe = _I18nSelectPipe;
     type: Pipe,
     args: [{
       name: "i18nSelect",
-      pure: true,
       standalone: true
     }]
   }], null, null);
@@ -3294,9 +3367,7 @@ var _KeyValuePipe = class _KeyValuePipe {
     if (!input || !(input instanceof Map) && typeof input !== "object") {
       return null;
     }
-    if (!this.differ) {
-      this.differ = this.differs.find(input).create();
-    }
+    this.differ ??= this.differs.find(input).create();
     const differChanges = this.differ.diff(input);
     const compareFnChanged = compareFn !== this.compareFn;
     if (differChanges) {
@@ -3374,7 +3445,7 @@ var _DecimalPipe = class _DecimalPipe {
   transform(value, digitsInfo, locale) {
     if (!isValue(value))
       return null;
-    locale = locale || this._locale;
+    locale ||= this._locale;
     try {
       const num = strToNumber(value);
       return formatNumber(num, locale, digitsInfo);
@@ -3431,7 +3502,7 @@ var _PercentPipe = class _PercentPipe {
   transform(value, digitsInfo, locale) {
     if (!isValue(value))
       return null;
-    locale = locale || this._locale;
+    locale ||= this._locale;
     try {
       const num = strToNumber(value);
       return formatPercent(num, locale, digitsInfo);
@@ -3506,7 +3577,7 @@ var _CurrencyPipe = class _CurrencyPipe {
   transform(value, currencyCode = this._defaultCurrencyCode, display = "symbol", digitsInfo, locale) {
     if (!isValue(value))
       return null;
-    locale = locale || this._locale;
+    locale ||= this._locale;
     if (typeof display === "boolean") {
       if ((typeof ngDevMode === "undefined" || ngDevMode) && console && console.warn) {
         console.warn(`Warning: the currency pipe has been changed in Angular v5. The symbolDisplay option (third parameter) is now a string instead of a boolean. The accepted values are "code", "symbol" or "symbol-narrow".`);
@@ -3643,13 +3714,13 @@ function isPlatformWorkerApp(platformId) {
 function isPlatformWorkerUi(platformId) {
   return platformId === PLATFORM_WORKER_UI_ID;
 }
-var VERSION = new Version("17.0.8");
+var VERSION = new Version("17.3.3");
 var _ViewportScroller = class _ViewportScroller {
 };
 _ViewportScroller.ɵprov = ɵɵdefineInjectable({
   token: _ViewportScroller,
   providedIn: "root",
-  factory: () => new BrowserViewportScroller(ɵɵinject(DOCUMENT), window)
+  factory: () => isPlatformBrowser(inject(PLATFORM_ID)) ? new BrowserViewportScroller(inject(DOCUMENT), window) : new NullViewportScroller()
 });
 var ViewportScroller = _ViewportScroller;
 var BrowserViewportScroller = class {
@@ -3676,20 +3747,14 @@ var BrowserViewportScroller = class {
    * @returns The position in screen coordinates.
    */
   getScrollPosition() {
-    if (this.supportsScrolling()) {
-      return [this.window.pageXOffset, this.window.pageYOffset];
-    } else {
-      return [0, 0];
-    }
+    return [this.window.scrollX, this.window.scrollY];
   }
   /**
    * Sets the scroll position.
    * @param position The new position in screen coordinates.
    */
   scrollToPosition(position) {
-    if (this.supportsScrolling()) {
-      this.window.scrollTo(position[0], position[1]);
-    }
+    this.window.scrollTo(position[0], position[1]);
   }
   /**
    * Scrolls to an element and attempts to focus the element.
@@ -3703,9 +3768,6 @@ var BrowserViewportScroller = class {
    * @see https://html.spec.whatwg.org/#scroll-to-fragid
    */
   scrollToAnchor(target) {
-    if (!this.supportsScrolling()) {
-      return;
-    }
     const elSelected = findAnchorFromDocument(this.document, target);
     if (elSelected) {
       this.scrollToElement(elSelected);
@@ -3716,9 +3778,7 @@ var BrowserViewportScroller = class {
    * Disables automatic scroll restoration provided by the browser.
    */
   setHistoryScrollRestoration(scrollRestoration) {
-    if (this.supportsScrolling()) {
-      this.window.history.scrollRestoration = scrollRestoration;
-    }
+    this.window.history.scrollRestoration = scrollRestoration;
   }
   /**
    * Scrolls to an element using the native offset and the specified offset set on this scroller.
@@ -3732,13 +3792,6 @@ var BrowserViewportScroller = class {
     const top = rect.top + this.window.pageYOffset;
     const offset = this.offset();
     this.window.scrollTo(left - offset[0], top - offset[1]);
-  }
-  supportsScrolling() {
-    try {
-      return !!this.window && !!this.window.scrollTo && "pageXOffset" in this.window;
-    } catch {
-      return false;
-    }
   }
 };
 function findAnchorFromDocument(document, target) {
@@ -3792,6 +3845,7 @@ var NullViewportScroller = class {
 };
 var XhrFactory = class {
 };
+var PLACEHOLDER_QUALITY = "20";
 function getUrl(src, win) {
   return isAbsoluteUrl(src) ? new URL(src) : new URL(src, win.location.href);
 }
@@ -3820,7 +3874,7 @@ function normalizeSrc(src) {
   return src.startsWith("/") ? src.slice(1) : src;
 }
 var noopImageLoader = (config) => config.src;
-var IMAGE_LOADER = new InjectionToken("ImageLoader", {
+var IMAGE_LOADER = new InjectionToken(ngDevMode ? "ImageLoader" : "", {
   providedIn: "root",
   factory: () => noopImageLoader
 });
@@ -3857,6 +3911,9 @@ function createCloudflareUrl(path, config) {
   if (config.width) {
     params += `,width=${config.width}`;
   }
+  if (config.isPlaceholder) {
+    params += `,quality=${PLACEHOLDER_QUALITY}`;
+  }
   return `${path}/cdn-cgi/image/${params}/${config.src}`;
 }
 var cloudinaryLoaderInfo = {
@@ -3869,7 +3926,8 @@ function isCloudinaryUrl(url) {
 }
 var provideCloudinaryLoader = createImageLoader(createCloudinaryUrl, ngDevMode ? ["https://res.cloudinary.com/mysite", "https://mysite.cloudinary.com", "https://subdomain.mysite.com"] : void 0);
 function createCloudinaryUrl(path, config) {
-  let params = `f_auto,q_auto`;
+  const quality = config.isPlaceholder ? "q_auto:low" : "q_auto";
+  let params = `f_auto,${quality}`;
   if (config.width) {
     params += `,w_${config.width}`;
   }
@@ -3896,7 +3954,11 @@ function createImagekitUrl(path, config) {
   } else {
     urlSegments = [path, src];
   }
-  return urlSegments.join("/");
+  const url = new URL(urlSegments.join("/"));
+  if (config.isPlaceholder) {
+    url.searchParams.set("q", PLACEHOLDER_QUALITY);
+  }
+  return url.href;
 }
 var imgixLoaderInfo = {
   name: "Imgix",
@@ -3913,7 +3975,61 @@ function createImgixUrl(path, config) {
   if (config.width) {
     url.searchParams.set("w", config.width.toString());
   }
+  if (config.isPlaceholder) {
+    url.searchParams.set("q", PLACEHOLDER_QUALITY);
+  }
   return url.href;
+}
+var netlifyLoaderInfo = {
+  name: "Netlify",
+  testUrl: isNetlifyUrl
+};
+var NETLIFY_LOADER_REGEX = /https?\:\/\/[^\/]+\.netlify\.app\/.+/;
+function isNetlifyUrl(url) {
+  return NETLIFY_LOADER_REGEX.test(url);
+}
+function provideNetlifyLoader(path) {
+  if (path && !isValidPath(path)) {
+    throw new RuntimeError(2959, ngDevMode && `Image loader has detected an invalid path (\`${path}\`). To fix this, supply either the full URL to the Netlify site, or leave it empty to use the current site.`);
+  }
+  if (path) {
+    const url = new URL(path);
+    path = url.origin;
+  }
+  const loaderFn = (config) => {
+    return createNetlifyUrl(config, path);
+  };
+  const providers = [{
+    provide: IMAGE_LOADER,
+    useValue: loaderFn
+  }];
+  return providers;
+}
+var validParams = /* @__PURE__ */ new Map([["height", "h"], ["fit", "fit"], ["quality", "q"], ["q", "q"], ["position", "position"]]);
+function createNetlifyUrl(config, path) {
+  const url = new URL(path ?? "https://a/");
+  url.pathname = "/.netlify/images";
+  if (!isAbsoluteUrl(config.src) && !config.src.startsWith("/")) {
+    config.src = "/" + config.src;
+  }
+  url.searchParams.set("url", config.src);
+  if (config.width) {
+    url.searchParams.set("w", config.width.toString());
+  }
+  const configQuality = config.loaderParams?.["quality"] ?? config.loaderParams?.["q"];
+  if (config.isPlaceholder && !configQuality) {
+    url.searchParams.set("q", PLACEHOLDER_QUALITY);
+  }
+  for (const [param, value] of Object.entries(config.loaderParams ?? {})) {
+    if (validParams.has(param)) {
+      url.searchParams.set(validParams.get(param), value.toString());
+    } else {
+      if (ngDevMode) {
+        console.warn(formatRuntimeError(2959, `The Netlify image loader has detected an \`<img>\` tag with the unsupported attribute "\`${param}\`".`));
+      }
+    }
+  }
+  return url.hostname === "a" ? url.href.replace(url.origin, "") : url.href;
 }
 function imgDirectiveDetails(ngSrc, includeNgSrc = true) {
   const ngSrcInfo = includeNgSrc ? `(activated on an <img> element with the \`ngSrc="${ngSrc}"\`) ` : "";
@@ -4025,7 +4141,7 @@ function logModifiedWarning(ngSrc) {
   console.warn(formatRuntimeError(2964, `${directiveDetails} this image is the Largest Contentful Paint (LCP) element and has had its "ngSrc" attribute modified. This can cause slower loading performance. It is recommended not to modify the "ngSrc" property on any image which could be the LCP element.`));
 }
 var INTERNAL_PRECONNECT_CHECK_BLOCKLIST = /* @__PURE__ */ new Set(["localhost", "127.0.0.1", "0.0.0.0"]);
-var PRECONNECT_CHECK_BLOCKLIST = new InjectionToken("PRECONNECT_CHECK_BLOCKLIST");
+var PRECONNECT_CHECK_BLOCKLIST = new InjectionToken(ngDevMode ? "PRECONNECT_CHECK_BLOCKLIST" : "");
 var _PreconnectLinkChecker = class _PreconnectLinkChecker {
   constructor() {
     this.document = inject(DOCUMENT);
@@ -4068,9 +4184,7 @@ var _PreconnectLinkChecker = class _PreconnectLinkChecker {
     if (this.blocklist.has(imgUrl.hostname) || this.alreadySeen.has(imgUrl.origin))
       return;
     this.alreadySeen.add(imgUrl.origin);
-    if (!this.preconnectLinks) {
-      this.preconnectLinks = this.queryPreconnectLinks();
-    }
+    this.preconnectLinks ??= this.queryPreconnectLinks();
     if (!this.preconnectLinks.has(imgUrl.origin)) {
       console.warn(formatRuntimeError(2956, `${imgDirectiveDetails(originalNgSrc)} there is no preconnect tag present for this image. Preconnecting to the origin(s) that serve priority images ensures that these images are delivered as soon as possible. To fix this, please add the following element into the <head> of the document:
   <link rel="preconnect" href="${imgUrl.origin}">`));
@@ -4191,7 +4305,10 @@ var ASPECT_RATIO_TOLERANCE = 0.1;
 var OVERSIZED_IMAGE_TOLERANCE = 1e3;
 var FIXED_SRCSET_WIDTH_LIMIT = 1920;
 var FIXED_SRCSET_HEIGHT_LIMIT = 1080;
-var BUILT_IN_LOADERS = [imgixLoaderInfo, imageKitLoaderInfo, cloudinaryLoaderInfo];
+var PLACEHOLDER_BLUR_AMOUNT = 15;
+var DATA_URL_WARN_LIMIT = 4e3;
+var DATA_URL_ERROR_LIMIT = 1e4;
+var BUILT_IN_LOADERS = [imgixLoaderInfo, imageKitLoaderInfo, cloudinaryLoaderInfo, netlifyLoaderInfo];
 var _NgOptimizedImage = class _NgOptimizedImage {
   constructor() {
     this.imageLoader = inject(IMAGE_LOADER);
@@ -4237,6 +4354,7 @@ var _NgOptimizedImage = class _NgOptimizedImage {
       if (!this.ngSrcset) {
         assertNoComplexSizes(this);
       }
+      assertValidPlaceholder(this, this.imageLoader);
       assertNotMissingBuiltInLoader(this.ngSrc, this.imageLoader);
       assertNoNgSrcsetWithoutLoader(this, this.imageLoader);
       assertNoLoaderParamsWithoutLoader(this, this.imageLoader);
@@ -4251,13 +4369,14 @@ var _NgOptimizedImage = class _NgOptimizedImage {
         checker.assertPreconnect(this.getRewrittenSrc(), this.ngSrc);
       }
     }
+    if (this.placeholder) {
+      this.removePlaceholderOnLoad(this.imgElement);
+    }
     this.setHostAttributes();
   }
   setHostAttributes() {
     if (this.fill) {
-      if (!this.sizes) {
-        this.sizes = "100vw";
-      }
+      this.sizes ||= "100vw";
     } else {
       this.setHostAttribute("width", this.width.toString());
       this.setHostAttribute("height", this.height.toString());
@@ -4379,6 +4498,47 @@ var _NgOptimizedImage = class _NgOptimizedImage {
     }
     return !this.disableOptimizedSrcset && !this.srcset && this.imageLoader !== noopImageLoader && !oversizedImage;
   }
+  /**
+   * Returns an image url formatted for use with the CSS background-image property. Expects one of:
+   * * A base64 encoded image, which is wrapped and passed through.
+   * * A boolean. If true, calls the image loader to generate a small placeholder url.
+   */
+  generatePlaceholder(placeholderInput) {
+    const {
+      placeholderResolution
+    } = this.config;
+    if (placeholderInput === true) {
+      return `url(${this.callImageLoader({
+        src: this.ngSrc,
+        width: placeholderResolution,
+        isPlaceholder: true
+      })})`;
+    } else if (typeof placeholderInput === "string" && placeholderInput.startsWith("data:")) {
+      return `url(${placeholderInput})`;
+    }
+    return null;
+  }
+  /**
+   * Determines if blur should be applied, based on an optional boolean
+   * property `blur` within the optional configuration object `placeholderConfig`.
+   */
+  shouldBlurPlaceholder(placeholderConfig) {
+    if (!placeholderConfig || !placeholderConfig.hasOwnProperty("blur")) {
+      return true;
+    }
+    return Boolean(placeholderConfig.blur);
+  }
+  removePlaceholderOnLoad(img) {
+    const callback = () => {
+      const changeDetectorRef = this.injector.get(ChangeDetectorRef);
+      removeLoadListenerFn();
+      removeErrorListenerFn();
+      this.placeholder = false;
+      changeDetectorRef.markForCheck();
+    };
+    const removeLoadListenerFn = this.renderer.listen(img, "load", callback);
+    const removeErrorListenerFn = this.renderer.listen(img, "error", callback);
+  }
   /** @nodoc */
   ngOnDestroy() {
     if (ngDevMode) {
@@ -4397,23 +4557,25 @@ _NgOptimizedImage.ɵfac = function NgOptimizedImage_Factory(t) {
 _NgOptimizedImage.ɵdir = ɵɵdefineDirective({
   type: _NgOptimizedImage,
   selectors: [["img", "ngSrc", ""]],
-  hostVars: 8,
+  hostVars: 18,
   hostBindings: function NgOptimizedImage_HostBindings(rf, ctx) {
     if (rf & 2) {
-      ɵɵstyleProp("position", ctx.fill ? "absolute" : null)("width", ctx.fill ? "100%" : null)("height", ctx.fill ? "100%" : null)("inset", ctx.fill ? "0px" : null);
+      ɵɵstyleProp("position", ctx.fill ? "absolute" : null)("width", ctx.fill ? "100%" : null)("height", ctx.fill ? "100%" : null)("inset", ctx.fill ? "0" : null)("background-size", ctx.placeholder ? "cover" : null)("background-position", ctx.placeholder ? "50% 50%" : null)("background-repeat", ctx.placeholder ? "no-repeat" : null)("background-image", ctx.placeholder ? ctx.generatePlaceholder(ctx.placeholder) : null)("filter", ctx.placeholder && ctx.shouldBlurPlaceholder(ctx.placeholderConfig) ? "blur(15px)" : null);
     }
   },
   inputs: {
-    ngSrc: ["ngSrc", "ngSrc", unwrapSafeUrl],
+    ngSrc: [InputFlags.HasDecoratorInputTransform, "ngSrc", "ngSrc", unwrapSafeUrl],
     ngSrcset: "ngSrcset",
     sizes: "sizes",
-    width: ["width", "width", numberAttribute],
-    height: ["height", "height", numberAttribute],
+    width: [InputFlags.HasDecoratorInputTransform, "width", "width", numberAttribute],
+    height: [InputFlags.HasDecoratorInputTransform, "height", "height", numberAttribute],
     loading: "loading",
-    priority: ["priority", "priority", booleanAttribute],
+    priority: [InputFlags.HasDecoratorInputTransform, "priority", "priority", booleanAttribute],
     loaderParams: "loaderParams",
-    disableOptimizedSrcset: ["disableOptimizedSrcset", "disableOptimizedSrcset", booleanAttribute],
-    fill: ["fill", "fill", booleanAttribute],
+    disableOptimizedSrcset: [InputFlags.HasDecoratorInputTransform, "disableOptimizedSrcset", "disableOptimizedSrcset", booleanAttribute],
+    fill: [InputFlags.HasDecoratorInputTransform, "fill", "fill", booleanAttribute],
+    placeholder: [InputFlags.HasDecoratorInputTransform, "placeholder", "placeholder", booleanOrDataUrlAttribute],
+    placeholderConfig: "placeholderConfig",
     src: "src",
     srcset: "srcset"
   },
@@ -4431,7 +4593,12 @@ var NgOptimizedImage = _NgOptimizedImage;
         "[style.position]": 'fill ? "absolute" : null',
         "[style.width]": 'fill ? "100%" : null',
         "[style.height]": 'fill ? "100%" : null',
-        "[style.inset]": 'fill ? "0px" : null'
+        "[style.inset]": 'fill ? "0" : null',
+        "[style.background-size]": 'placeholder ? "cover" : null',
+        "[style.background-position]": 'placeholder ? "50% 50%" : null',
+        "[style.background-repeat]": 'placeholder ? "no-repeat" : null',
+        "[style.background-image]": "placeholder ? generatePlaceholder(placeholder) : null",
+        "[style.filter]": `placeholder && shouldBlurPlaceholder(placeholderConfig) ? "blur(${PLACEHOLDER_BLUR_AMOUNT}px)" : null`
       }
     }]
   }], null, {
@@ -4484,6 +4651,15 @@ var NgOptimizedImage = _NgOptimizedImage;
         transform: booleanAttribute
       }]
     }],
+    placeholder: [{
+      type: Input,
+      args: [{
+        transform: booleanOrDataUrlAttribute
+      }]
+    }],
+    placeholderConfig: [{
+      type: Input
+    }],
     src: [{
       type: Input
     }],
@@ -4522,6 +4698,31 @@ function assertNoComplexSizes(dir) {
   let sizes = dir.sizes;
   if (sizes?.match(/((\)|,)\s|^)\d+px/)) {
     throw new RuntimeError(2952, `${imgDirectiveDetails(dir.ngSrc, false)} \`sizes\` was set to a string including pixel values. For automatic \`srcset\` generation, \`sizes\` must only include responsive values, such as \`sizes="50vw"\` or \`sizes="(min-width: 768px) 50vw, 100vw"\`. To fix this, modify the \`sizes\` attribute, or provide your own \`ngSrcset\` value directly.`);
+  }
+}
+function assertValidPlaceholder(dir, imageLoader) {
+  assertNoPlaceholderConfigWithoutPlaceholder(dir);
+  assertNoRelativePlaceholderWithoutLoader(dir, imageLoader);
+  assertNoOversizedDataUrl(dir);
+}
+function assertNoPlaceholderConfigWithoutPlaceholder(dir) {
+  if (dir.placeholderConfig && !dir.placeholder) {
+    throw new RuntimeError(2952, `${imgDirectiveDetails(dir.ngSrc, false)} \`placeholderConfig\` options were provided for an image that does not use the \`placeholder\` attribute, and will have no effect.`);
+  }
+}
+function assertNoRelativePlaceholderWithoutLoader(dir, imageLoader) {
+  if (dir.placeholder === true && imageLoader === noopImageLoader) {
+    throw new RuntimeError(2963, `${imgDirectiveDetails(dir.ngSrc)} the \`placeholder\` attribute is set to true but no image loader is configured (i.e. the default one is being used), which would result in the same image being used for the primary image and its placeholder. To fix this, provide a loader or remove the \`placeholder\` attribute from the image.`);
+  }
+}
+function assertNoOversizedDataUrl(dir) {
+  if (dir.placeholder && typeof dir.placeholder === "string" && dir.placeholder.startsWith("data:")) {
+    if (dir.placeholder.length > DATA_URL_ERROR_LIMIT) {
+      throw new RuntimeError(2965, `${imgDirectiveDetails(dir.ngSrc)} the \`placeholder\` attribute is set to a data URL which is longer than ${DATA_URL_ERROR_LIMIT} characters. This is strongly discouraged, as large inline placeholders directly increase the bundle size of Angular and hurt page load performance. To fix this, generate a smaller data URL placeholder.`);
+    }
+    if (dir.placeholder.length > DATA_URL_WARN_LIMIT) {
+      console.warn(formatRuntimeError(2965, `${imgDirectiveDetails(dir.ngSrc)} the \`placeholder\` attribute is set to a data URL which is longer than ${DATA_URL_WARN_LIMIT} characters. This is discouraged, as large inline placeholders directly increase the bundle size of Angular and hurt page load performance. For better loading performance, generate a smaller data URL placeholder.`));
+    }
   }
 }
 function assertNotBlobUrl(dir) {
@@ -4713,11 +4914,18 @@ function unwrapSafeUrl(value) {
   }
   return unwrapSafeValue(value);
 }
+function booleanOrDataUrlAttribute(value) {
+  if (typeof value === "string" && value.startsWith(`data:`)) {
+    return value;
+  }
+  return booleanAttribute(value);
+}
 
 export {
   getDOM,
   setRootDomAdapter,
   DomAdapter,
+  PlatformNavigation,
   DOCUMENT,
   PlatformLocation,
   LOCATION_INITIALIZED,
@@ -4810,6 +5018,7 @@ export {
   provideCloudinaryLoader,
   provideImageKitLoader,
   provideImgixLoader,
+  provideNetlifyLoader,
   PRECONNECT_CHECK_BLOCKLIST,
   NgOptimizedImage
 };
@@ -4817,9 +5026,9 @@ export {
 
 @angular/common/fesm2022/common.mjs:
   (**
-   * @license Angular v17.0.8
+   * @license Angular v17.3.3
    * (c) 2010-2022 Google LLC. https://angular.io/
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-5MUOGZWO.js.map
+//# sourceMappingURL=chunk-LN4EGFZP.js.map

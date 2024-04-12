@@ -1,23 +1,6 @@
-#bigDiv
- { width: 800px; top: 10%; left: 30%; margin-top: 100px; margin-left: 240px; margin: auto; background-color: #1f2225; padding:20px; align: center; border-radius: 8px; } 
-
- *{
-  margin-top: 10px;
- }
-
- p, ::placeholder, h2{
-  color: #fff;
- }
-
- input, select{
-  background-color:#406061;
-  color: #fff;
- }
-
-
-body {
-  font-family: Arial, sans-serif;
+app-gpa-calc {
   background-color: #1f2225;
+  font-family: sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
@@ -26,6 +9,38 @@ body {
   height: 100vh;
 }
 
+*{
+  margin: auto;
+}
+#bigDiv
+ { width: auto;  background-color: #1f2225; padding:0 10%; border-radius: 8px;} 
+
+ *{
+  margin-top: 10px;
+ }
+
+ p, ::placeholder, h2, li{
+  color: #fff;
+ }
+
+ input, select{
+  background-color:#406061;
+  color: #fff;
+ }
+
+/*
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1f2225;
+  width:100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+*/
 #all{
   font-family: Arial, sans-serif;
   background-color: #1f2225;
@@ -107,7 +122,6 @@ input {
   border-radius: 20px;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   text-align: center;
-  width:790px;
   height: 300px;
   font-size: 16px;
 }
